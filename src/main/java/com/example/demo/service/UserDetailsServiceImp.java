@@ -6,20 +6,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.UserEntity;
-import com.example.demo.repository.UserMapper;
-
-import lombok.RequiredArgsConstructor;
+import com.example.demo.entity.UserDetailsImp;
+import com.example.demo.repository.LoginUserMapper;
 
 @Service
 public class UserDetailsServiceImp implements UserDetailsService {
 	
 	@Autowired
-	private UserMapper mapper;
+	private LoginUserMapper mapper;
 	
 	@Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-		UserEntity user = mapper.findByUsername(username);
+		UserDetailsImp user = mapper.findByUsername(username);
 		if(user ==null)
 			throw new UsernameNotFoundException("");
 		else

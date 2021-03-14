@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.entity.UserEntity;
+import com.example.demo.entity.UserDetailsImp;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import io.jsonwebtoken.Claims;
@@ -30,7 +30,7 @@ public class JWTProvider {
     private UserDetailsService service;
 
     // UserオブジェクトからJWTを作成する
-    public String createToken(UserEntity user) {
+    public String createToken(UserDetailsImp user) {
     	
         // ClaimとしてIDとユーザ名を載せる
         Claims claims = Jwts.claims().setSubject(user.getUserId().toString());

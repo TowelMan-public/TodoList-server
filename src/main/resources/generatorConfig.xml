@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1" targetRuntime="MyBatis3">
+    <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+        connectionURL="jdbc:mysql://localhost:3306/todo_list"
+        userId="root"
+        password="root">
+    </jdbcConnection>
+    <!-- SELECT 結果等を格納するドメインモデルを生成する設定 -->
+    <javaModelGenerator targetPackage="com.example.demo.entity" targetProject="TodoList/src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="false" />
+    </javaModelGenerator>
+
+    <!-- SQL 設定が記述された XML を生成する設定 -->
+    <sqlMapGenerator targetPackage="com.example.demo.repository" targetProject="TodoList/src/main/resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+    <!-- マッパークラスを生成する設定 -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.repository" targetProject="TodoList/src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+    
+     <table schema="todo_list" tableName="have_user_list"
+     	domainObjectName="UserInSpaceEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="flat">
+    </table>
+    
+    <table schema="todo_list" tableName="todo_cotent"
+     	domainObjectName="ContentEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="flat">
+    </table>
+    
+    <table schema="todo_list" tableName="todo_list"
+     	domainObjectName="ListPrimaryEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="false"
+	    enableUpdateByPrimaryKey="false"
+	    enableUpdateByExample="false"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="false"
+	    enableCountByExample="false"
+	    selectByExampleQueryId="false"
+	    modelType="flat">
+    </table>
+    
+    <table schema="todo_list" tableName="todo_list_details"
+     	domainObjectName="ListEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="flat">
+    </table>
+    
+    <table schema="todo_list" tableName="todo_space_details"
+     	domainObjectName="SpaceEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="flat">
+    </table>
+    
+    <table schema="todo_list" tableName="users"
+     	domainObjectName="UserEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="flat">
+    </table>
+    
+    <table schema="todo_list" tableName="simple_todo_list"
+     	domainObjectName="SimpleTodoListEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="hierarchical">
+    </table>
+    
+    <table schema="todo_list" tableName="todo_list_each_user"
+     	domainObjectName="TodoListEachUserEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="flat">
+    </table>
+    
+    <table schema="todo_list" tableName="todo_space"
+     	domainObjectName="SpacePrimaryEnti"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="false"
+	    enableUpdateByPrimaryKey="false"
+	    enableUpdateByExample="false"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="false"
+	    enableCountByExample="false"
+	    selectByExampleQueryId="false"
+	    modelType="flat">
+    </table>
+    
+  </context>
+</generatorConfiguration>
