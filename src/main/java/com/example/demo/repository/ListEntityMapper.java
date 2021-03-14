@@ -1,7 +1,8 @@
 package com.example.demo.repository;
 
+import com.example.demo.dto.ListEntityExample;
 import com.example.demo.entity.ListEntity;
-import com.example.demo.entity.ListEntityExample;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,7 +1,8 @@
 package com.example.demo.repository;
 
+import com.example.demo.dto.SimpleTodoListEntityExample;
 import com.example.demo.entity.SimpleTodoListEntity;
-import com.example.demo.entity.SimpleTodoListEntityExample;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

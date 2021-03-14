@@ -17,6 +17,14 @@ public class UserDetailsImp implements UserDetails {
 	private Integer userId;
 	private boolean isEnabled;
 	
+	//UserEntityとの互換用のコンストラクタ
+	public UserDetailsImp(UserEntity entity) {
+		this.setEnabled(entity.getIsEnabled() == 1);
+		this.setPassword(entity.getPassword());
+		this.setUserId(entity.getUserId());
+		this.setUsername(entity.getUsername());
+	}
+	
 	//アカウントの有効期限の状態を判定
 	@Override
 	public boolean isAccountNonExpired() {

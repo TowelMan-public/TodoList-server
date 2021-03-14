@@ -1,7 +1,8 @@
 package com.example.demo.repository;
 
+import com.example.demo.dto.UserInSpaceEntityExample;
 import com.example.demo.entity.UserInSpaceEntity;
-import com.example.demo.entity.UserInSpaceEntityExample;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
