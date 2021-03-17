@@ -1,5 +1,8 @@
 package com.example.demo.controller.space;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,36 +11,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.UrlConfing;
+import com.example.demo.entity.CountlistInSpaceEntity;
+import com.example.demo.entity.SpaceEntity;
+import com.example.demo.entity.TodoListEachUserEntity;
 import com.example.demo.entity.UserDetailsImp;
 import com.example.demo.form.Groups;
 import com.example.demo.form.space.MySpaceListForm;
+import com.example.demo.service.spaec.MySpaceService;
 
 @RequestMapping(UrlConfing.ROOT_URL + "/space/me")
 @RestController
 public class MySpaceControl {
 	
+	@Autowired
+	MySpaceService mySpaceService;
+	
 	@GetMapping("count/month/get")
-	void getCountMyListInMonth(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInMonthGroup.class) MySpaceListForm form) {
-		//TODO
+	public CountlistInSpaceEntity getCountMyListInMonth(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInMonthGroup.class) MySpaceListForm form) {
+		return mySpaceService.getCountListInMonth(form, user.getUserId());
 	}
 	
 	@GetMapping("count/week/get")
-	void getCountMyListInWeek(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInWeekGroup.class) MySpaceListForm form) {
-		//TODO
+	public CountlistInSpaceEntity getCountMyListInWeek(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInWeekGroup.class) MySpaceListForm form) {
+		return mySpaceService.getCountListInWeek(form, user.getUserId());
 	}
 
 	@GetMapping("count/day/get")
-	void getCountMyListInDay(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.CountInDayGroup.class) MySpaceListForm form) {
-		//TODO
+	public CountlistInSpaceEntity getCountMyListInDay(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.CountInDayGroup.class) MySpaceListForm form) {
+		return mySpaceService.getCountListInDay(form, user.getUserId());
 	}
 	
 	@GetMapping("day/get")
-	void getListInDayInMySpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ListInDayGroup.class) MySpaceListForm form) {
-		//TODO
+	public List<TodoListEachUserEntity> getListInDayInMySpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ListInDayGroup.class) MySpaceListForm form) {
+		return mySpaceService.getListInDayInSpace(form, user.getUserId());
 	}
 	
 	@GetMapping("get")
-	void getMySpace(@AuthenticationPrincipal UserDetailsImp user) {
-		//TODO
+	public List<SpaceEntity> getMySpace(@AuthenticationPrincipal UserDetailsImp user) {
+		return mySpaceService.getMySpace(user.getUserId());
 	}
 }

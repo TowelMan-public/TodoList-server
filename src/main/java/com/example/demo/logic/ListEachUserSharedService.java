@@ -38,4 +38,22 @@ public class ListEachUserSharedService {
 		return new TodoListEachUserEntityExample().or()
 				.andListDateBetween(startDate, finishDate);
 	}
+
+	public int getListCountBetoweenDateByUserId(int userId, Date startDate, Date finifhDate) {
+		return (int)(todoListEachUserEntityMapper.countByExample(
+				makeSqlForGetListByUserId(userId,startDate,finifhDate)));
+	}
+
+	public List<TodoListEachUserEntity> getListBetoweenDateByUserId(int userId, Date startDate, Date finifhDate) {
+		return todoListEachUserEntityMapper.selectByExample(
+				makeSqlForGetListByUserId(userId,startDate,finifhDate));
+	}
+	
+	private TodoListEachUserEntityExample makeSqlForGetListByUserId(int userId, Date startDate, Date finishDate) {
+		TodoListEachUserEntityExample selectDto = new TodoListEachUserEntityExample();
+		selectDto.or(makeSqlBetoweenDate(startDate, finishDate));
+		selectDto.or().andUserIdEqualTo(userId);
+		
+		return selectDto;
+	}
 }

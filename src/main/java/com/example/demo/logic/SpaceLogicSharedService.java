@@ -1,11 +1,16 @@
 package com.example.demo.logic;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.ScopeConstant;
 import com.example.demo.UserAuthorityInSpaceConstant;
+import com.example.demo.dto.SpaceEntityExample;
+import com.example.demo.dto.UserInSpaceEntityExample;
 import com.example.demo.entity.SpaceEntity;
+import com.example.demo.entity.TodoListEachUserEntity;
 import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.repository.SpaceEntityMapper;
@@ -50,5 +55,17 @@ public class SpaceLogicSharedService {
 		
 		//例外
 		throw new HaveNotAuthorityInSpaceException("userId is not able select in spaceId");
+	}
+
+	public List<UserInSpaceEntity> getSpaceIdEachUser(int userId) {
+		UserInSpaceEntityExample selectDto = new UserInSpaceEntityExample();
+		selectDto.or()
+			.andUserIdEqualTo(userId);
+		
+		return userInSpaceEntityMapper.selectByExample(selectDto);
+	}
+
+	public SpaceEntity getSpaceBySpaceid(int spaceId) {
+		return spaceEntityMapper.selectByPrimaryKey(spaceId);
 	}
 }
