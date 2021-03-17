@@ -2,18 +2,22 @@ package com.example.demo.service;
 
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.UserDetailsImp;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.exception.AlreadyUsedException;
+import com.example.demo.form.UserForm;
 import com.example.demo.logic.UserLogicSharedService;
 
 @Service
 public class UserService {
 	@Autowired
 	UserLogicSharedService userLogicSharedService;
+	@Autowired
+	PasswordEncoder encoder;
 	
 	@Transactional(rollbackForClassName = "Exception")
 	public void deleteUser(int userId,String username) throws NotFoundException{
@@ -41,7 +45,7 @@ public class UserService {
 		userLogicSharedService.verificationExistsUsername(oldUsername);
 		userLogicSharedService.verificationNotUsedUsername(newUsername);
 		//処理
-		userLogicSharedService.updateUserSelective(entity);
+		userLogicSharedService.updateUserByPrimaryKeySelective(entity);
 	}
 	
 	@Transactional(rollbackForClassName = "Exception")
@@ -49,11 +53,29 @@ public class UserService {
 		//更新するデータをセット
 		UserEntity entity = new UserEntity();
 		entity.setUserId(userId);
-		entity.setPassword(newPassword);
+		entity.setPassword( passwordEncod(newPassword) );
 		
 		//検証
 		userLogicSharedService.verificationExistsUsername(username);
 		//処理
-		userLogicSharedService.updateUserSelective(entity);
+		userLogicSharedService.updateUserByPrimaryKeySelective(entity);
+	}
+
+	public void insertUser(UserForm form) throws AlreadyUsedException {
+		//検証
+		userLogicSharedService.verificationNotUsedUsername(form.getUsername());
+		
+		//データセット
+		UserEntity entity = new UserEntity();
+		entity.setPassword(form.getPassword());
+		entity.setUsername( passwordEncod(form.getUsername()) );
+		
+		//処理
+		userLogicSharedService.insertUser(entity);
+	}
+	
+	//パスワードを暗号化する
+	private String passwordEncod(String password) {
+		return encoder.encode(password);
 	}
 }

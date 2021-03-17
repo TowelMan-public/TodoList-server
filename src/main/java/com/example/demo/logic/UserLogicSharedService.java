@@ -15,8 +15,8 @@ public class UserLogicSharedService {
 	@Autowired
 	private UserEntityMapper userMapper;
 	
-	public void updateUserSelective(UserEntity entity) {
-		userMapper.updateByExampleSelective(entity, new UserEntityExample());
+	public void updateUserByPrimaryKeySelective(UserEntity entity) {
+		userMapper.updateByPrimaryKeySelective(entity);
 	}
 	
 	//ユーザーの削除（is_enableを0に設定）
@@ -60,5 +60,9 @@ public class UserLogicSharedService {
 			.andUsernameEqualTo(username)
 			.andIsEnabledEqualTo(1);
 		return selectDto;
+	}
+
+	public void insertUser(UserEntity entity) {
+		userMapper.insertSelective(entity);
 	}
 }

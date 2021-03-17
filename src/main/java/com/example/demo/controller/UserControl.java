@@ -45,4 +45,9 @@ public class UserControl {
 			throws NotFoundException{
 		service.updatePassword(user.getUserId(),user.getUsername(),form.getNewPassword());
 	}
+	
+	@PostMapping("insert")
+	public void insertUser(@RequestBody @Validated(Groups.InsertGroup.class) UserForm form) throws AlreadyUsedException {
+		service.insertUser(form);
+	}
 }
