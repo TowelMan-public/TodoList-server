@@ -36,7 +36,7 @@
 	    modelType="flat">
     </table>
     
-    <table schema="todo_list" tableName="todo_cotent"
+    <table schema="todo_list" tableName="todo_content"
      	domainObjectName="ContentEntity"
      	enableInsert="true"
 	    enableSelectByPrimaryKey="true"
@@ -120,8 +120,8 @@
 	    modelType="hierarchical">
     </table>
     
-    <table schema="todo_list" tableName="todo_list_each_user"
-     	domainObjectName="TodoListEachUserEntity"
+    <table schema="todo_list" tableName="todo_content"
+     	domainObjectName="ContentEntity"
      	enableInsert="true"
 	    enableSelectByPrimaryKey="true"
 	    enableSelectByExample="true"
@@ -134,17 +134,17 @@
 	    modelType="flat">
     </table>
     
-    <table schema="todo_list" tableName="todo_space"
-     	domainObjectName="SpacePrimaryEnti"
+    <table schema="todo_list" tableName="todo_list_eacch_user"
+     	domainObjectName="TodoListEachUserEntity"
      	enableInsert="true"
 	    enableSelectByPrimaryKey="true"
-	    enableSelectByExample="false"
-	    enableUpdateByPrimaryKey="false"
-	    enableUpdateByExample="false"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
 	    enableDeleteByPrimaryKey="true"
-	    enableDeleteByExample="false"
-	    enableCountByExample="false"
-	    selectByExampleQueryId="false"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
 	    modelType="flat">
     </table>
     
