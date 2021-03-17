@@ -2,6 +2,7 @@ package com.example.demo.form.space;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import com.example.demo.RegexpMessage;
 import com.example.demo.form.Groups;
@@ -29,4 +30,7 @@ public class SpaceListForm {
 	@Min(value = 1,message = RegexpMessage.DAY, groups = {Groups.CountInDayGroup.class,Groups.ListInDayGroup.class})
 	@Max(value = 31,message = RegexpMessage.DAY,groups = {Groups.CountInDayGroup.class,Groups.ListInDayGroup.class})
 	private Integer day;
+	
+	@NotBlank(groups = {Groups.CountInMonthGroup.class,Groups.CountInDayGroup.class,Groups.CountInWeekGroup.class,Groups.ListInDayGroup.class})
+	private Integer spaceId;
 }
