@@ -18,7 +18,7 @@ public class SimpleTodoLogicSharedService {
 		mapper.insertSelective(entity);
 	}
 
-	public List<SimpleTodoListEntity> get(int userId) {
+	public List<SimpleTodoListEntity> getSimpleTodoLists(int userId) {
 		//SQL作成
 		SimpleTodoListEntityExample selectDto = new SimpleTodoListEntityExample();
 		selectDto
@@ -29,5 +29,10 @@ public class SimpleTodoLogicSharedService {
 		
 		//処理
 		return mapper.selectByExample(selectDto);
+	}
+
+	public int getSimpleSpaceId(int userId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
 	}
 }

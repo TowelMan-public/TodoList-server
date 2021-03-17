@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.SimpleTodoListEntity;
 import com.example.demo.form.SimpleTodoForm;
+import com.example.demo.logic.ListPrimaryLogicSharedService;
 import com.example.demo.logic.SimpleTodoLogicSharedService;
 import com.example.demo.logic.UserLogicSharedService;
 import com.example.demo.utility.DateUtilitySharedService;
@@ -20,6 +21,8 @@ public class SimpleTodoService {
 	UserLogicSharedService userLogicSharedService;
 	@Autowired
 	DateUtilitySharedService utilitySharedService;
+	@Autowired
+	ListPrimaryLogicSharedService listPrimaryLogicSharedService;
 	
 	@Transactional(rollbackForClassName = "Exception")
 	public void insertSimpleTodoList(SimpleTodoForm form,int userId){
@@ -30,10 +33,12 @@ public class SimpleTodoService {
 		entity.setListDate(utilitySharedService.mergeDate(form.getListDate(), form.getListTime()));
 		
 		//処理
+		int simpleSpaceId = simpleTodoLogicSharedService.getSimpleSpaceId(userId);
+		entity.setListId(listPrimaryLogicSharedService.insertListPrimary(simpleSpaceId));
 		simpleTodoLogicSharedService.insert(entity);
 	}
 	
 	public List<SimpleTodoListEntity> getSimpleTodoLists(int userId){
-		return simpleTodoLogicSharedService.get(userId);
+		return simpleTodoLogicSharedService.getSimpleTodoLists(userId);
 	}
 }
