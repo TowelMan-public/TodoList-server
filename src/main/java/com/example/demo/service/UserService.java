@@ -10,12 +10,18 @@ import com.example.demo.entity.UserDetailsImp;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.exception.AlreadyUsedException;
 import com.example.demo.form.UserForm;
+import com.example.demo.logic.SimpleTodoLogicSharedService;
+import com.example.demo.logic.SpacePrimaryLogicSharedService;
 import com.example.demo.logic.UserLogicSharedService;
 
 @Service
 public class UserService {
 	@Autowired
 	UserLogicSharedService userLogicSharedService;
+	@Autowired
+	SimpleTodoLogicSharedService simpleTodoLogicSharedService;
+	@Autowired
+	SpacePrimaryLogicSharedService spacePrimaryLogicSharedService;
 	@Autowired
 	PasswordEncoder encoder;
 	
@@ -61,17 +67,23 @@ public class UserService {
 		userLogicSharedService.updateUserByPrimaryKeySelective(entity);
 	}
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void insertUser(UserForm form) throws AlreadyUsedException {
 		//検証
 		userLogicSharedService.verificationNotUsedUsername(form.getUsername());
 		
 		//データセット
 		UserEntity entity = new UserEntity();
-		entity.setPassword(form.getPassword());
-		entity.setUsername( passwordEncod(form.getUsername()) );
+		entity.setPassword( passwordEncod(form.getPassword() ));
+		entity.setUsername(form.getUsername());
 		
 		//処理
 		userLogicSharedService.insertUser(entity);
+		
+		//必要データ作成（シンプルToDoを作成しておく）
+		int userId = userLogicSharedService.getUserByUsername(entity.getUsername()).getUserId();
+		int spaceId = spacePrimaryLogicSharedService.insertSpacePrimary().getSpaceId();
+		simpleTodoLogicSharedService.createNewSimpleTodoListSpace(spaceId,userId);
 	}
 	
 	//パスワードを暗号化する
