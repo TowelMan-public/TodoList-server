@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 public class SpaceForm {
-	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.ScopeUpdateGroup.class,Groups.DeleteGroup.class,Groups.Secession.class})
+	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.ScopeUpdateGroup.class,Groups.DeleteGroup.class,Groups.Secession.class,Groups.GetGroup.class})
 	private Integer spaceId;
 	
 	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.ScopeUpdateGroup.class,Groups.MakeGroup.class})

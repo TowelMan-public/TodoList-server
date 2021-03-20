@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 public class UserInSpaceForm {
-	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.InsertGroup.class,Groups.DeleteGroup.class,Groups.UpdateGroup.class})
+	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.InsertGroup.class,Groups.DeleteGroup.class,Groups.UpdateGroup.class,Groups.GetGroup.class})
 	private Integer spaceId;
 	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.InsertGroup.class,Groups.DeleteGroup.class,Groups.UpdateGroup.class})
 	private String username;
