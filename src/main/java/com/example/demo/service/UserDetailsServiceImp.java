@@ -6,12 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dto.UserEntityExample;
 import com.example.demo.entity.UserDetailsImp;
-import com.example.demo.entity.UserEntity;
 import com.example.demo.logic.UserLogicSharedService;
-import com.example.demo.repository.LoginUserMapper;
-import com.example.demo.repository.UserEntityMapper;
 
 @Service
 public class UserDetailsServiceImp implements UserDetailsService {

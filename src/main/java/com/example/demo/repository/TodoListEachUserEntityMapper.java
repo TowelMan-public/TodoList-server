@@ -4,8 +4,11 @@ import com.example.demo.dto.TodoListEachUserEntityExample;
 import com.example.demo.entity.TodoListEachUserEntity;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface TodoListEachUserEntityMapper {
 
 	/**
