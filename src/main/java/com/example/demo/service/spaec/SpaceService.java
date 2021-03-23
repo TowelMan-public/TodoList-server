@@ -10,7 +10,7 @@ import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.form.space.SpaceForm;
 import com.example.demo.logic.SpaceLogicSharedService;
 import com.example.demo.logic.SpacePrimaryLogicSharedService;
-import com.example.demo.logic.UserInLogicSharedService;
+import com.example.demo.logic.UserInSpaceLogicSharedService;
 
 @Service
 public class SpaceService {
@@ -19,7 +19,7 @@ public class SpaceService {
 	@Autowired
 	SpacePrimaryLogicSharedService spacePrimaryLogicSharedService;
 	@Autowired
-	UserInLogicSharedService userInLogicSharedService;
+	UserInSpaceLogicSharedService userInSpaceLogicSharedService;
 	
 	public void updateScope(SpaceForm form, Integer userId) throws HaveNotAuthorityInSpaceException {
 		//データセット
@@ -52,7 +52,7 @@ public class SpaceService {
 		entity.setSpaceId(
 				spacePrimaryLogicSharedService.insertSpacePrimary().getSpaceId());
 		spaceLogicSharedService.insertSpace(entity);
-		userInLogicSharedService.insertUserInSpace(
+		userInSpaceLogicSharedService.insertUserInSpace(
 				new UserInSpaceEntity(entity.getSpaceId(),userId,UserAuthorityInSpaceConstant.SUPER));
 	}
 
@@ -61,7 +61,7 @@ public class SpaceService {
 		spaceLogicSharedService.verificationEnableSelect(spaceId, userId);
 		
 		//処理
-		userInLogicSharedService.eraseUserInSpace(spaceId,userId);
+		userInSpaceLogicSharedService.eraseUserInSpace(spaceId,userId);
 	}
 
 	public SpaceEntity getSpace(Integer userId, Integer spaceId) throws HaveNotAuthorityInSpaceException {

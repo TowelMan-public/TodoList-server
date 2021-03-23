@@ -7,7 +7,7 @@ import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.repository.UserInSpaceEntityMapper;
 
 @Component
-public class UserInLogicSharedService {
+public class UserInSpaceLogicSharedService {
 	@Autowired
 	UserInSpaceEntityMapper userInSpaceEntityMapper;
 	
