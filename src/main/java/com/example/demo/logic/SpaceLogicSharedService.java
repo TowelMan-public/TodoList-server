@@ -7,10 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.ScopeConstant;
 import com.example.demo.UserAuthorityInSpaceConstant;
-import com.example.demo.dto.SpaceEntityExample;
 import com.example.demo.dto.UserInSpaceEntityExample;
 import com.example.demo.entity.SpaceEntity;
-import com.example.demo.entity.TodoListEachUserEntity;
 import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.repository.SpaceEntityMapper;
@@ -67,5 +65,20 @@ public class SpaceLogicSharedService {
 
 	public SpaceEntity getSpaceBySpaceid(int spaceId) {
 		return spaceEntityMapper.selectByPrimaryKey(spaceId);
+	}
+
+	public void updateSelective(SpaceEntity entity) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	public void deleteSpace(int spaceId, int userId) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	public void insertSpace(SpaceEntity entity) {
+		// TODO 自動生成されたメソッド・スタブ
+		
 	}
 }
