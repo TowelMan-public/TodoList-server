@@ -39,7 +39,7 @@ public class SpaceService {
 		spaceLogicSharedService.verificationEnableAll(spaceId,userId);
 		
 		//処理
-		spaceLogicSharedService.deleteSpace(spaceId,userId);
+		spaceLogicSharedService.deleteSpace(spaceId);
 	}
 
 	public void makeSpace(SpaceForm form, Integer userId) {

@@ -68,17 +68,20 @@ public class SpaceLogicSharedService {
 	}
 
 	public void updateSelective(SpaceEntity entity) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		spaceEntityMapper.updateByPrimaryKeySelective(entity);
 	}
 
-	public void deleteSpace(int spaceId, int userId) {
-		// TODO 自動生成されたメソッド・スタブ
+	public void deleteSpace(int spaceId) {
+		//データ作成
+		SpaceEntity entity = new SpaceEntity();
+		entity.setIsEnable(false);
+		entity.setSpaceId(spaceId);
 		
+		//実行
+		spaceEntityMapper.updateByPrimaryKeySelective(entity);
 	}
 
 	public void insertSpace(SpaceEntity entity) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		spaceEntityMapper.insertSelective(entity);
 	}
 }

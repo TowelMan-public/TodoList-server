@@ -1,20 +1,22 @@
 package com.example.demo.logic;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.UserInSpaceEntity;
+import com.example.demo.repository.UserInSpaceEntityMapper;
 
 @Component
 public class UserInLogicSharedService {
-
+	@Autowired
+	UserInSpaceEntityMapper userInSpaceEntityMapper;
+	
 	public void insertUserInSpace(UserInSpaceEntity userInSpaceEntity) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		userInSpaceEntityMapper.insertSelective(userInSpaceEntity);
 	}
 
 	public void eraseUserInSpace(Integer spaceId, Integer userId) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		userInSpaceEntityMapper.deleteByPrimaryKey(spaceId, userId);
 	}
 
 }

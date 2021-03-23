@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.UrlConfing;
 import com.example.demo.entity.SpaceEntity;
 import com.example.demo.entity.UserDetailsImp;
+import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.form.Groups;
 import com.example.demo.form.space.SpaceForm;
 import com.example.demo.service.spaec.SpaceService;
@@ -23,26 +24,26 @@ public class SpaceControl {
 	SpaceService spaceService;
 	
 	@PostMapping("scope/update")
-	void updateScope(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ScopeUpdateGroup.class) SpaceForm form) {
+	public void updateScope(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ScopeUpdateGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
 		spaceService.updateScope(form,user.getUserId());
 	}
 	
 	@PostMapping("delete")
-	void deleteSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.DeleteGroup.class) SpaceForm form) {
+	public void deleteSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.DeleteGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
 		spaceService.deleteSpace(form.getSpaceId(),user.getUserId());
 	}
 	
 	@PostMapping("make")
-	void makeSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.MakeGroup.class) SpaceForm form) {
+	public void makeSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.MakeGroup.class) SpaceForm form) {
 		spaceService.makeSpace(form,user.getUserId());
 	}
 	
 	@PostMapping("secession")
-	void secessionSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.Secession.class) SpaceForm form) {
+	public void secessionSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.Secession.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
 		spaceService.secessionSpace(user.getUserId(),form.getSpaceId());
 	}
 	@GetMapping("get")
-	SpaceEntity getSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) SpaceForm form) {
+	public SpaceEntity getSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
 		return spaceService.getSpace(user.getUserId(),form.getSpaceId());
 	}
 }
