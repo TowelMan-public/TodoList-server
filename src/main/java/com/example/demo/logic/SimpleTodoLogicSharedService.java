@@ -41,6 +41,7 @@ public class SimpleTodoLogicSharedService {
 		return simpleTodoListEntityMapper.selectByExample(selectDto);
 	}
 
+	//内部の動き（SimpleTodoについて）を隠ぺいするために作られたため、安易にこの関数を無くしたりしないこと
 	public void createNewSimpleTodoListSpace(int spaceId, int userId) {
 		//スペースをシンプルToDo用に作成
 		SpaceEntity spaceEntity = new SpaceEntity();
