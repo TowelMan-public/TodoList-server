@@ -2,8 +2,8 @@ package com.example.demo.service.spaec;
 
 import java.util.List;
 
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.UserInSpaceEntity;
@@ -21,7 +21,7 @@ public class UserInSpaceService {
 	SpaceLogicSharedService spaceLogicSharedService;
 	@Autowired
 	UserInSpaceLogicSharedService userInSpaceLogicSharedService;
-	public void insertUserInSpace(int userId, UserInSpaceForm form) throws UsernameNotFoundException, HaveNotAuthorityInSpaceException{
+	public void insertUserInSpace(int userId, UserInSpaceForm form) throws NotFoundException, HaveNotAuthorityInSpaceException{
 		//検証
 		verification(form.getSpaceId(), userId);
 		
@@ -36,7 +36,7 @@ public class UserInSpaceService {
 		userInSpaceLogicSharedService.insertUserInSpace(entity);
 	}
 
-	public void deleteUserInSpace(int userId, int spaceId, String targetUsername) throws UsernameNotFoundException, HaveNotAuthorityInSpaceException {
+	public void deleteUserInSpace(int userId, int spaceId, String targetUsername) throws NotFoundException, HaveNotAuthorityInSpaceException {
 		//検証
 		verification(spaceId, userId);
 		
@@ -45,7 +45,7 @@ public class UserInSpaceService {
 				getUserIdByUsername(targetUsername));
 	}
 
-	public void updateUserAuthortyInSpace(int userId, UserInSpaceForm form) throws UsernameNotFoundException, HaveNotAuthorityInSpaceException {
+	public void updateUserAuthortyInSpace(int userId, UserInSpaceForm form) throws NotFoundException, HaveNotAuthorityInSpaceException {
 		//検証
 		verification(form.getSpaceId(), userId);
 		
@@ -74,7 +74,8 @@ public class UserInSpaceService {
 	}
 	
 	//ユーザー名からユーザーIdを取得する
-	private int getUserIdByUsername(String username) {
+	private int getUserIdByUsername(String username) throws NotFoundException {
+		userLogicSharedService.verificationExistsUsername(username);
 		return userLogicSharedService.getUserByUsername(username).getUserId();
 	}
 }

@@ -2,6 +2,7 @@ package com.example.demo.controller.space;
 
 import java.util.List;
 
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,19 +29,19 @@ public class UserInSpaceControl {
 	
 	@PostMapping("insert")
 	public void insertUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.InsertGroup.class) UserInSpaceForm form)
-			throws UsernameNotFoundException, HaveNotAuthorityInSpaceException {
+			throws NotFoundException, HaveNotAuthorityInSpaceException {
 		userInSpaceService.insertUserInSpace(user.getUserId(),form);
 	}
 	
 	@PostMapping("delete")
 	public void deleteUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.DeleteGroup.class) UserInSpaceForm form)
-			throws UsernameNotFoundException, HaveNotAuthorityInSpaceException {
+			throws NotFoundException, HaveNotAuthorityInSpaceException {
 		userInSpaceService.deleteUserInSpace(user.getUserId(),form.getSpaceId(),form.getUsername());
 	}
 	
 	@PostMapping("update")
 	public void updateUserAuthortyInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.UpdateGroup.class) UserInSpaceForm form)
-			throws UsernameNotFoundException, HaveNotAuthorityInSpaceException {
+			throws NotFoundException, HaveNotAuthorityInSpaceException {
 		userInSpaceService.updateUserAuthortyInSpace(user.getUserId(),form);
 	}
 	
