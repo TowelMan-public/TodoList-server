@@ -7,10 +7,13 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.ScopeConstant;
 import com.example.demo.UserAuthorityInSpaceConstant;
+import com.example.demo.dto.SpaceEntityExample;
 import com.example.demo.dto.UserInSpaceEntityExample;
 import com.example.demo.entity.SpaceEntity;
 import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
+import com.example.demo.exception.SpaceIsnotPublicException;
+import com.example.demo.repository.PublicSpaceMapper;
 import com.example.demo.repository.SpaceEntityMapper;
 import com.example.demo.repository.UserInSpaceEntityMapper;
 
@@ -20,6 +23,8 @@ public class SpaceLogicSharedService {
 	SpaceEntityMapper spaceEntityMapper;
 	@Autowired
 	UserInSpaceEntityMapper userInSpaceEntityMapper;
+	@Autowired
+	PublicSpaceMapper publicSpaceMapper;
 
 	public void verificationEnableAll(int spaceId, int userId) throws HaveNotAuthorityInSpaceException {
 		//データ取得
@@ -83,5 +88,21 @@ public class SpaceLogicSharedService {
 
 	public void insertSpace(SpaceEntity entity) {
 		spaceEntityMapper.insertSelective(entity);
+	}
+
+	public void verificationIsPublicScope(int spaceId) throws SpaceIsnotPublicException {
+		//SQL作成
+		SpaceEntityExample selectDto = new SpaceEntityExample();
+		selectDto.or()
+			.andSpaceIdEqualTo(spaceId)
+			.andScopeIdEqualTo(ScopeConstant.PUBLIC);
+		
+		//処理
+		if(spaceEntityMapper.countByExample(selectDto) == 0) 
+			throw new SpaceIsnotPublicException("space is not public");
+	}
+
+	public List<SpaceEntity> getPublicSpace(int userId) {
+		return publicSpaceMapper.getPublicSpace(userId);
 	}
 }

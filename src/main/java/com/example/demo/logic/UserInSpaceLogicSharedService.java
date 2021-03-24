@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.dto.UserInSpaceEntityExample;
+import com.example.demo.entity.SpaceEntity;
 import com.example.demo.entity.UserInSpaceEntity;
+import com.example.demo.exception.UserAleadyJoinSpaceException;
 import com.example.demo.repository.UserInSpaceEntityMapper;
 
 @Component
@@ -35,4 +37,14 @@ public class UserInSpaceLogicSharedService {
 		return userInSpaceEntityMapper.selectByExample(selectDto);
 	}
 
+	public void verificationNotJoinedUserInSpace(int spaceId, int userId) throws UserAleadyJoinSpaceException {
+		//SQL作成
+		UserInSpaceEntityExample selectDto = new UserInSpaceEntityExample();
+		selectDto.or()
+			.andSpaceIdEqualTo(spaceId)
+			.andUserIdEqualTo(userId);
+		
+		if(userInSpaceEntityMapper.countByExample(selectDto) == 0)
+			throw new UserAleadyJoinSpaceException("user have aleady joined space");
+	}
 }
