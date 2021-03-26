@@ -1,5 +1,6 @@
 package com.example.demo.logic;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.javassist.NotFoundException;
@@ -19,6 +20,7 @@ public class ContentLogicSharedService {
 		//データセット
 		ContentEntity entity = new ContentEntity();
 		entity.setContentId(contentId);
+		entity.setUpdateTimestamp(new Date());//タイムスタンプ
 		entity.setIsEnabled(false);
 		
 		//処理
@@ -49,6 +51,7 @@ public class ContentLogicSharedService {
 	}
 
 	public void updateContent(ContentEntity entity) {
+		entity.setUpdateTimestamp(new Date());//タイムスタンプ
 		contentEntityMapper.updateByPrimaryKeySelective(entity);
 	}
 }

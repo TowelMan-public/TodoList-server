@@ -1,5 +1,7 @@
 package com.example.demo.logic;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ public class ListLogicSharedService {
 	public void deleteList(int listId) {
 		ListEntity entity = new ListEntity();
 		entity.setListId(listId);
+		entity.setUpdateTimestamp(new Date());//タイムスタンプ
 		entity.setIsEnabled(false);
 		listEntityMapper.updateByPrimaryKeySelective(entity);
 	}
@@ -23,6 +26,7 @@ public class ListLogicSharedService {
 	}
 
 	public void updateListByPrimaryKeySelective(ListEntity entity) {
+		entity.setUpdateTimestamp(new Date());//タイムスタンプ
 		listEntityMapper.updateByPrimaryKeySelective(entity);
 	}
 }
