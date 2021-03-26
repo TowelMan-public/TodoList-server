@@ -26,6 +26,40 @@ public class SpaceLogicSharedService {
 	@Autowired
 	PublicSpaceMapper publicSpaceMapper;
 
+	public void deleteSpace(int spaceId) {
+		//データ作成
+		SpaceEntity entity = new SpaceEntity();
+		entity.setIsEnable(false);
+		entity.setSpaceId(spaceId);
+		
+		//実行
+		spaceEntityMapper.updateByPrimaryKeySelective(entity);
+	}
+	
+	public List<SpaceEntity> getPublicSpace(int userId) {
+		return publicSpaceMapper.getPublicSpace(userId);
+	}
+
+	public SpaceEntity getSpaceBySpaceid(int spaceId) {
+		return spaceEntityMapper.selectByPrimaryKey(spaceId);
+	}
+
+	public List<UserInSpaceEntity> getSpaceIdEachUser(int userId) {
+		UserInSpaceEntityExample selectDto = new UserInSpaceEntityExample();
+		selectDto.or()
+			.andUserIdEqualTo(userId);
+		
+		return userInSpaceEntityMapper.selectByExample(selectDto);
+	}
+
+	public void insertSpace(SpaceEntity entity) {
+		spaceEntityMapper.insertSelective(entity);
+	}
+
+	public void updateSelective(SpaceEntity entity) {
+		spaceEntityMapper.updateByPrimaryKeySelective(entity);
+	}
+
 	public void verificationEnableAll(int spaceId, int userId) throws HaveNotAuthorityInSpaceException {
 		//データ取得
 		UserInSpaceEntity userInSpaceEntity = userInSpaceEntityMapper.selectByPrimaryKey(spaceId, userId);
@@ -47,7 +81,7 @@ public class SpaceLogicSharedService {
 		//例外
 		throw new HaveNotAuthorityInSpaceException("HaveNotAuthorityInSpaceException all");
 	}
-	
+
 	public void verificationEnableSelect(int spaceId, int userId) throws HaveNotAuthorityInSpaceException {
 		//データ取得
 		UserInSpaceEntity userInSpaceEntity = userInSpaceEntityMapper.selectByPrimaryKey(spaceId, userId);
@@ -60,36 +94,6 @@ public class SpaceLogicSharedService {
 		throw new HaveNotAuthorityInSpaceException("HaveNotAuthorityInSpaceException select");
 	}
 
-	public List<UserInSpaceEntity> getSpaceIdEachUser(int userId) {
-		UserInSpaceEntityExample selectDto = new UserInSpaceEntityExample();
-		selectDto.or()
-			.andUserIdEqualTo(userId);
-		
-		return userInSpaceEntityMapper.selectByExample(selectDto);
-	}
-
-	public SpaceEntity getSpaceBySpaceid(int spaceId) {
-		return spaceEntityMapper.selectByPrimaryKey(spaceId);
-	}
-
-	public void updateSelective(SpaceEntity entity) {
-		spaceEntityMapper.updateByPrimaryKeySelective(entity);
-	}
-
-	public void deleteSpace(int spaceId) {
-		//データ作成
-		SpaceEntity entity = new SpaceEntity();
-		entity.setIsEnable(false);
-		entity.setSpaceId(spaceId);
-		
-		//実行
-		spaceEntityMapper.updateByPrimaryKeySelective(entity);
-	}
-
-	public void insertSpace(SpaceEntity entity) {
-		spaceEntityMapper.insertSelective(entity);
-	}
-
 	public void verificationIsPublicScope(int spaceId) throws SpaceIsnotPublicException {
 		//SQL作成
 		SpaceEntityExample selectDto = new SpaceEntityExample();
@@ -100,9 +104,5 @@ public class SpaceLogicSharedService {
 		//処理
 		if(spaceEntityMapper.countByExample(selectDto) == 0) 
 			throw new SpaceIsnotPublicException("SpaceIsnotPublicException");
-	}
-
-	public List<SpaceEntity> getPublicSpace(int userId) {
-		return publicSpaceMapper.getPublicSpace(userId);
 	}
 }

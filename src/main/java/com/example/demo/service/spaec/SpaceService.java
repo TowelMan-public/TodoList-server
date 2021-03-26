@@ -21,25 +21,20 @@ public class SpaceService {
 	@Autowired
 	UserInSpaceLogicSharedService userInSpaceLogicSharedService;
 	
-	public void updateScope(SpaceForm form, Integer userId) throws HaveNotAuthorityInSpaceException {
-		//データセット
-		SpaceEntity entity = new SpaceEntity();
-		entity.setSpaceId(form.getSpaceId());
-		entity.setScopeId(form.getScopeId());
-		
-		//検証
-		spaceLogicSharedService.verificationEnableAll(form.getSpaceId(),userId);
-		
-		//処理
-		spaceLogicSharedService.updateSelective(entity);
-	}
-
 	public void deleteSpace(Integer spaceId, Integer userId) throws HaveNotAuthorityInSpaceException {
 		//検証
 		spaceLogicSharedService.verificationEnableAll(spaceId,userId);
 		
 		//処理
 		spaceLogicSharedService.deleteSpace(spaceId);
+	}
+
+	public SpaceEntity getSpace(Integer userId, Integer spaceId) throws HaveNotAuthorityInSpaceException {
+		//検証
+		spaceLogicSharedService.verificationEnableSelect(spaceId, userId);
+		
+		//処理
+		return spaceLogicSharedService.getSpaceBySpaceid(spaceId);
 	}
 
 	public void makeSpace(SpaceForm form, Integer userId) {
@@ -64,12 +59,17 @@ public class SpaceService {
 		userInSpaceLogicSharedService.eraseUserInSpace(spaceId,userId);
 	}
 
-	public SpaceEntity getSpace(Integer userId, Integer spaceId) throws HaveNotAuthorityInSpaceException {
+	public void updateScope(SpaceForm form, Integer userId) throws HaveNotAuthorityInSpaceException {
+		//データセット
+		SpaceEntity entity = new SpaceEntity();
+		entity.setSpaceId(form.getSpaceId());
+		entity.setScopeId(form.getScopeId());
+		
 		//検証
-		spaceLogicSharedService.verificationEnableSelect(spaceId, userId);
+		spaceLogicSharedService.verificationEnableAll(form.getSpaceId(),userId);
 		
 		//処理
-		return spaceLogicSharedService.getSpaceBySpaceid(spaceId);
+		spaceLogicSharedService.updateSelective(entity);
 	}
 	
 }

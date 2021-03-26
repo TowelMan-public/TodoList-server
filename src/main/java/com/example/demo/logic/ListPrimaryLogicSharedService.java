@@ -12,6 +12,13 @@ public class ListPrimaryLogicSharedService {
 	@Autowired
 	ListPrimaryEntityMapper listPrimaryEntityMapper;
 	
+	public ListPrimaryEntity getListPrimary(int listId) throws NotFoundException{
+		ListPrimaryEntity entity = listPrimaryEntityMapper.selectByPrimaryKey(listId);
+		if(entity == null || entity.getSpaceId() == null)
+			throw new NotFoundException("NotFound listid");
+		return entity;
+	}
+
 	public int insertListPrimary(int spaceId) {
 		//追加するデータのセット
 		ListPrimaryEntity entity = new ListPrimaryEntity();
@@ -23,12 +30,5 @@ public class ListPrimaryLogicSharedService {
 		
 		//自動採番された主キーの取得
 		return entity.getListId();
-	}
-
-	public ListPrimaryEntity getListPrimary(int listId) throws NotFoundException{
-		ListPrimaryEntity entity = listPrimaryEntityMapper.selectByPrimaryKey(listId);
-		if(entity == null || entity.getSpaceId() == null)
-			throw new NotFoundException("NotFound listid");
-		return entity;
 	}
 }

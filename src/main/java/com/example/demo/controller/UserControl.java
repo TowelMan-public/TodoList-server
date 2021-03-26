@@ -34,10 +34,9 @@ public class UserControl {
 		return service.getUser(user);
 	}
 	
-	@PostMapping("username/update")
-	public void updateUsernaem(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.NameGroup.class) UserForm form)
-			throws NotFoundException,AlreadyUsedException{
-		service.updateUsername(user.getUserId(),user.getUsername(),form.getNewUsername());
+	@PostMapping("insert")
+	public void insertUser(@RequestBody @Validated(Groups.InsertGroup.class) UserForm form) throws AlreadyUsedException {
+		service.insertUser(form);
 	}
 	
 	@PostMapping("password/update") 
@@ -46,8 +45,9 @@ public class UserControl {
 		service.updatePassword(user.getUserId(),user.getUsername(),form.getNewPassword());
 	}
 	
-	@PostMapping("insert")
-	public void insertUser(@RequestBody @Validated(Groups.InsertGroup.class) UserForm form) throws AlreadyUsedException {
-		service.insertUser(form);
+	@PostMapping("username/update")
+	public void updateUsernaem(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.NameGroup.class) UserForm form)
+			throws NotFoundException,AlreadyUsedException{
+		service.updateUsername(user.getUserId(),user.getUsername(),form.getNewUsername());
 	}
 }

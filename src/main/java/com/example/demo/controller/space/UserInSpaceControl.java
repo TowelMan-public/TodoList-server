@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,27 +26,27 @@ public class UserInSpaceControl {
 	@Autowired
 	UserInSpaceService userInSpaceService;
 	
-	@PostMapping("insert")
-	public void insertUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.InsertGroup.class) UserInSpaceForm form)
-			throws NotFoundException, HaveNotAuthorityInSpaceException {
-		userInSpaceService.insertUserInSpace(user.getUserId(),form);
-	}
-	
 	@PostMapping("delete")
 	public void deleteUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.DeleteGroup.class) UserInSpaceForm form)
 			throws NotFoundException, HaveNotAuthorityInSpaceException {
 		userInSpaceService.deleteUserInSpace(user.getUserId(),form.getSpaceId(),form.getUsername());
 	}
 	
-	@PostMapping("update")
-	public void updateUserAuthortyInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.UpdateGroup.class) UserInSpaceForm form)
-			throws NotFoundException, HaveNotAuthorityInSpaceException {
-		userInSpaceService.updateUserAuthortyInSpace(user.getUserId(),form);
-	}
-	
 	@GetMapping("get")
 	public List<UserInSpaceEntity> getUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) UserInSpaceForm form)
 			throws HaveNotAuthorityInSpaceException {
 		return userInSpaceService.getUserInSpace(user.getUserId(),form.getSpaceId());
+	}
+	
+	@PostMapping("insert")
+	public void insertUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.InsertGroup.class) UserInSpaceForm form)
+			throws NotFoundException, HaveNotAuthorityInSpaceException {
+		userInSpaceService.insertUserInSpace(user.getUserId(),form);
+	}
+	
+	@PostMapping("update")
+	public void updateUserAuthortyInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.UpdateGroup.class) UserInSpaceForm form)
+			throws NotFoundException, HaveNotAuthorityInSpaceException {
+		userInSpaceService.updateUserAuthortyInSpace(user.getUserId(),form);
 	}
 }

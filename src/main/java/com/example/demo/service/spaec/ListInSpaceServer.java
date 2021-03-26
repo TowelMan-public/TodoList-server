@@ -23,6 +23,24 @@ public class ListInSpaceServer {
 	@Autowired
 	DateUtilitySharedService dateUtilitySharedService;
 	
+	public CountlistInSpaceEntity getCountListInDay(SpaceListForm form, int userId) throws HaveNotAuthorityInSpaceException {
+		//検証
+		spaceLogicSharedService.verificationEnableSelect(form.getSpaceId(), userId);
+		
+		//データセット
+		DateUtilitySharedService.BetoweenDate betoweenDate =
+				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getWeekCount());
+		
+		//処理
+		int listCount = listEachUserSharedService.getListCountBetoweenDateBySpaceId(form.getSpaceId()
+				,betoweenDate.getStartDate(),betoweenDate.getFinifhDate());
+		
+		CountlistInSpaceEntity entity=new CountlistInSpaceEntity();
+		entity.setCount(listCount);
+		entity.setSpaceId(form.getSpaceId());
+		return entity;
+	}
+
 	public CountlistInSpaceEntity getCountListInMonth(SpaceListForm form, int userId) throws HaveNotAuthorityInSpaceException {
 		//検証
 		spaceLogicSharedService.verificationEnableSelect(form.getSpaceId(), userId);
@@ -48,24 +66,6 @@ public class ListInSpaceServer {
 		//データセット
 		DateUtilitySharedService.BetoweenDate betoweenDate =
 				dateUtilitySharedService.getBetoweenDateInWeek(form.getYear(), form.getMonth(),form.getWeekCount());
-		
-		//処理
-		int listCount = listEachUserSharedService.getListCountBetoweenDateBySpaceId(form.getSpaceId()
-				,betoweenDate.getStartDate(),betoweenDate.getFinifhDate());
-		
-		CountlistInSpaceEntity entity=new CountlistInSpaceEntity();
-		entity.setCount(listCount);
-		entity.setSpaceId(form.getSpaceId());
-		return entity;
-	}
-
-	public CountlistInSpaceEntity getCountListInDay(SpaceListForm form, int userId) throws HaveNotAuthorityInSpaceException {
-		//検証
-		spaceLogicSharedService.verificationEnableSelect(form.getSpaceId(), userId);
-		
-		//データセット
-		DateUtilitySharedService.BetoweenDate betoweenDate =
-				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getWeekCount());
 		
 		//処理
 		int listCount = listEachUserSharedService.getListCountBetoweenDateBySpaceId(form.getSpaceId()

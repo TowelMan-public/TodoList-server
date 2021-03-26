@@ -15,10 +15,6 @@ public class UserLogicSharedService {
 	@Autowired
 	private UserEntityMapper userMapper;
 	
-	public void updateUserByPrimaryKeySelective(UserEntity entity) {
-		userMapper.updateByPrimaryKeySelective(entity);
-	}
-	
 	//ユーザーの削除（is_enableを0に設定）
 	public void deleteUser(int userId) {
 		UserEntity record = new UserEntity();
@@ -38,18 +34,8 @@ public class UserLogicSharedService {
 		}
 	}
 	
-	//ユーザー名が存在してるかを検証する
-	public void verificationExistsUsername(String username) throws NotFoundException{
-		//検証
-		if(userMapper.countByExample(makeSelectByUsernameSql(username)) == 0)
-			throw new NotFoundException("NotFoundException username");
-	}
-	
-	//ユーザー名が使われていないかを検証する
-	public void verificationNotUsedUsername(String username) throws AlreadyUsedException{
-		//検証
-		if(userMapper.countByExample(makeSelectByUsernameSql(username)) == 0)
-			throw new AlreadyUsedException("AlreadyUsedException username");
+	public void insertUser(UserEntity entity) {
+		userMapper.insertSelective(entity);
 	}
 	
 	//ユーザー名を指定しての検索のSQL作成
@@ -61,8 +47,22 @@ public class UserLogicSharedService {
 			.andIsEnabledEqualTo(1);
 		return selectDto;
 	}
+	
+	public void updateUserByPrimaryKeySelective(UserEntity entity) {
+		userMapper.updateByPrimaryKeySelective(entity);
+	}
+	
+	//ユーザー名が存在してるかを検証する
+	public void verificationExistsUsername(String username) throws NotFoundException{
+		//検証
+		if(userMapper.countByExample(makeSelectByUsernameSql(username)) == 0)
+			throw new NotFoundException("NotFoundException username");
+	}
 
-	public void insertUser(UserEntity entity) {
-		userMapper.insertSelective(entity);
+	//ユーザー名が使われていないかを検証する
+	public void verificationNotUsedUsername(String username) throws AlreadyUsedException{
+		//検証
+		if(userMapper.countByExample(makeSelectByUsernameSql(username)) == 0)
+			throw new AlreadyUsedException("AlreadyUsedException username");
 	}
 }

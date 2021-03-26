@@ -26,12 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    //パスワードのアルゴリズムをBCryptに設定
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -47,5 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // デフォルトのFilter設定を変える
                 .addFilterBefore(this.filter, UsernamePasswordAuthenticationFilter.class);
+    }
+    
+    //パスワードのアルゴリズムをBCryptに設定
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

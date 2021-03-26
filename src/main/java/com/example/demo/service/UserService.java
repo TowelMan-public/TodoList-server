@@ -41,33 +41,6 @@ public class UserService {
 	}
 	
 	@Transactional(rollbackForClassName = "Exception")
-	public void updateUsername(int userId,String oldUsername,String newUsername) throws NotFoundException,AlreadyUsedException{
-		//更新するデータをセット
-		UserEntity entity = new UserEntity();
-		entity.setUserId(userId);
-		entity.setUsername(newUsername);
-		
-		//検証
-		userLogicSharedService.verificationExistsUsername(oldUsername);
-		userLogicSharedService.verificationNotUsedUsername(newUsername);
-		//処理
-		userLogicSharedService.updateUserByPrimaryKeySelective(entity);
-	}
-	
-	@Transactional(rollbackForClassName = "Exception")
-	public void updatePassword(int userId,String username,String newPassword) throws NotFoundException{
-		//更新するデータをセット
-		UserEntity entity = new UserEntity();
-		entity.setUserId(userId);
-		entity.setPassword( passwordEncod(newPassword) );
-		
-		//検証
-		userLogicSharedService.verificationExistsUsername(username);
-		//処理
-		userLogicSharedService.updateUserByPrimaryKeySelective(entity);
-	}
-
-	@Transactional(rollbackForClassName = "Exception")
 	public void insertUser(UserForm form) throws AlreadyUsedException {
 		//検証
 		userLogicSharedService.verificationNotUsedUsername(form.getUsername());
@@ -89,5 +62,32 @@ public class UserService {
 	//パスワードを暗号化する
 	private String passwordEncod(String password) {
 		return encoder.encode(password);
+	}
+
+	@Transactional(rollbackForClassName = "Exception")
+	public void updatePassword(int userId,String username,String newPassword) throws NotFoundException{
+		//更新するデータをセット
+		UserEntity entity = new UserEntity();
+		entity.setUserId(userId);
+		entity.setPassword( passwordEncod(newPassword) );
+		
+		//検証
+		userLogicSharedService.verificationExistsUsername(username);
+		//処理
+		userLogicSharedService.updateUserByPrimaryKeySelective(entity);
+	}
+	
+	@Transactional(rollbackForClassName = "Exception")
+	public void updateUsername(int userId,String oldUsername,String newUsername) throws NotFoundException,AlreadyUsedException{
+		//更新するデータをセット
+		UserEntity entity = new UserEntity();
+		entity.setUserId(userId);
+		entity.setUsername(newUsername);
+		
+		//検証
+		userLogicSharedService.verificationExistsUsername(oldUsername);
+		userLogicSharedService.verificationNotUsedUsername(newUsername);
+		//処理
+		userLogicSharedService.updateUserByPrimaryKeySelective(entity);
 	}
 }

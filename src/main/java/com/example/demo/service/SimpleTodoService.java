@@ -24,6 +24,10 @@ public class SimpleTodoService {
 	@Autowired
 	ListPrimaryLogicSharedService listPrimaryLogicSharedService;
 	
+	public List<SimpleTodoListEntity> getSimpleTodoLists(int userId){
+		return simpleTodoLogicSharedService.getSimpleTodoLists(userId);
+	}
+	
 	@Transactional(rollbackForClassName = "Exception")
 	public void insertSimpleTodoList(SimpleTodoForm form,int userId){
 		//登録する内容をセットする
@@ -36,9 +40,5 @@ public class SimpleTodoService {
 		int simpleSpaceId = simpleTodoLogicSharedService.getSimpleSpaceId(userId);
 		entity.setListId(listPrimaryLogicSharedService.insertListPrimary(simpleSpaceId));
 		simpleTodoLogicSharedService.insert(entity);
-	}
-	
-	public List<SimpleTodoListEntity> getSimpleTodoLists(int userId){
-		return simpleTodoLogicSharedService.getSimpleTodoLists(userId);
 	}
 }

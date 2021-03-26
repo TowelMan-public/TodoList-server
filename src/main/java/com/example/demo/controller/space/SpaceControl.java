@@ -23,14 +23,14 @@ public class SpaceControl {
 	@Autowired
 	SpaceService spaceService;
 	
-	@PostMapping("scope/update")
-	public void updateScope(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ScopeUpdateGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
-		spaceService.updateScope(form,user.getUserId());
-	}
-	
 	@PostMapping("delete")
 	public void deleteSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.DeleteGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
 		spaceService.deleteSpace(form.getSpaceId(),user.getUserId());
+	}
+	
+	@GetMapping("get")
+	public SpaceEntity getSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
+		return spaceService.getSpace(user.getUserId(),form.getSpaceId());
 	}
 	
 	@PostMapping("make")
@@ -42,8 +42,8 @@ public class SpaceControl {
 	public void secessionSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.Secession.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
 		spaceService.secessionSpace(user.getUserId(),form.getSpaceId());
 	}
-	@GetMapping("get")
-	public SpaceEntity getSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
-		return spaceService.getSpace(user.getUserId(),form.getSpaceId());
+	@PostMapping("scope/update")
+	public void updateScope(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ScopeUpdateGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
+		spaceService.updateScope(form,user.getUserId());
 	}
 }

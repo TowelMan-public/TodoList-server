@@ -13,15 +13,10 @@ public class DateUtilitySharedService {
 	//java.util.Calendarの週は日曜日(1)から始まる
 	
 	
-	public Date mergeDate(Date date,Date time) {
-		Calendar mergeCarender = Calendar.getInstance();
-		Calendar timeCalender = Calendar.getInstance();
-		mergeCarender.setTime(date);
-		timeCalender.setTime(time);
-		mergeCarender.add(Calendar.HOUR,timeCalender.get(Calendar.HOUR));
-		mergeCarender.add(Calendar.MONTH,timeCalender.get(Calendar.MONTH));
-		
-		return mergeCarender.getTime();
+	@Data
+	public class BetoweenDate{
+		private Date startDate;
+		private Date finifhDate;
 	}
 	
 	public BetoweenDate getBetoweenDateInDay(int year,int month,int day) {
@@ -78,9 +73,14 @@ public class DateUtilitySharedService {
 		return betoweenDate;
 	}
 	
-	@Data
-	public class BetoweenDate{
-		private Date startDate;
-		private Date finifhDate;
+	public Date mergeDate(Date date,Date time) {
+		Calendar mergeCarender = Calendar.getInstance();
+		Calendar timeCalender = Calendar.getInstance();
+		mergeCarender.setTime(date);
+		timeCalender.setTime(time);
+		mergeCarender.add(Calendar.HOUR,timeCalender.get(Calendar.HOUR));
+		mergeCarender.add(Calendar.MONTH,timeCalender.get(Calendar.MONTH));
+		
+		return mergeCarender.getTime();
 	}
 }

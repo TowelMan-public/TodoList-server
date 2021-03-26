@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
@@ -8,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
 
 import com.example.demo.UrlConfing;
 import com.example.demo.entity.SimpleTodoListEntity;
@@ -23,13 +24,13 @@ public class SimpleControl {
 	@Autowired
 	SimpleTodoService service;
 	
-	@PostMapping("insert")
-	public void insertSimpleTodoList(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated SimpleTodoForm form) {
-		service.insertSimpleTodoList(form,user.getUserId());
-	}
-	
 	@GetMapping("get")
 	public List<SimpleTodoListEntity> getSimpleTodoLists(@AuthenticationPrincipal UserDetailsImp user) {
 		return service.getSimpleTodoLists(user.getUserId());
+	}
+	
+	@PostMapping("insert")
+	public void insertSimpleTodoList(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated SimpleTodoForm form) {
+		service.insertSimpleTodoList(form,user.getUserId());
 	}
 }

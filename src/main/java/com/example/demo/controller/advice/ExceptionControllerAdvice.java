@@ -21,10 +21,10 @@ import com.example.demo.exception.UserAleadyJoinSpaceException;
 @ControllerAdvice
 public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler{
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Object> methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e, WebRequest request) {
+	@ExceptionHandler(AlreadyUsedException.class)
+	public ResponseEntity<Object> alreadyUsedExceptionHandle(AlreadyUsedException e, WebRequest request) {
 		return super.handleExceptionInternal(e,
-                "MethodArgumentNotValidException",
+                "AlreadyUsedException",
                 null,
                 HttpStatus.BAD_REQUEST,
                 request);
@@ -39,15 +39,6 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler{
                 request);
 	}
 	
-	@ExceptionHandler(TypeMismatchException.class)
-	public ResponseEntity<Object> typeMismatchExceptionHandle(TypeMismatchException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "TypeMismatchException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
-	}
-	
 	@ExceptionHandler(HaveNotAuthorityInSpaceException.class)
 	public ResponseEntity<Object> haveNotAuthorityInSpaceExceptionHandle(HaveNotAuthorityInSpaceException e, WebRequest request) {
 		return super.handleExceptionInternal(e,
@@ -57,10 +48,10 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler{
                 request);
 	}
 	
-	@ExceptionHandler(AlreadyUsedException.class)
-	public ResponseEntity<Object> alreadyUsedExceptionHandle(AlreadyUsedException e, WebRequest request) {
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Object> methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e, WebRequest request) {
 		return super.handleExceptionInternal(e,
-                "AlreadyUsedException",
+                "MethodArgumentNotValidException",
                 null,
                 HttpStatus.BAD_REQUEST,
                 request);
@@ -79,6 +70,15 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler{
 	public ResponseEntity<Object> spaceIsnotPublicExceptionHandle(SpaceIsnotPublicException e, WebRequest request) {
 		return super.handleExceptionInternal(e,
                 "SpaceIsnotPublicException",
+                null,
+                HttpStatus.BAD_REQUEST,
+                request);
+	}
+	
+	@ExceptionHandler(TypeMismatchException.class)
+	public ResponseEntity<Object> typeMismatchExceptionHandle(TypeMismatchException e, WebRequest request) {
+		return super.handleExceptionInternal(e,
+                "TypeMismatchException",
                 null,
                 HttpStatus.BAD_REQUEST,
                 request);

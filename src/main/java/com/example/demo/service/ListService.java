@@ -32,6 +32,25 @@ public class ListService {
 	ContentLogicSharedService contentLogicSharedService;
 	
 	@Transactional(rollbackForClassName = "Exception")
+	public void deleteList(Integer listId, int userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
+		//検証
+		ListPrimaryEntity primaryEntity = listPrimaryLogicSharedService.getListPrimary(listId);
+		spaceLogicSharedService.verificationEnableAll(primaryEntity.getSpaceId(),userId);
+		
+		//処理
+		listLogicSharedService.deleteList(listId);
+	}
+	
+	public List<ContentEntity> getContentsInList(int listId,int userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
+		//検証
+		ListPrimaryEntity primaryEntity = listPrimaryLogicSharedService.getListPrimary(listId);
+		spaceLogicSharedService.verificationEnableSelect(primaryEntity.getSpaceId(),userId);
+		
+		//処理
+		return contentLogicSharedService.getContentsInList(listId);
+	}
+	
+	@Transactional(rollbackForClassName = "Exception")
 	public void insertList(ListForm form, int userId) throws HaveNotAuthorityInSpaceException {
 		//検証
 		spaceLogicSharedService.verificationEnableAll(form.getSpaceId(),userId);
@@ -48,16 +67,6 @@ public class ListService {
 	}
 	
 	@Transactional(rollbackForClassName = "Exception")
-	public void deleteList(Integer listId, int userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
-		//検証
-		ListPrimaryEntity primaryEntity = listPrimaryLogicSharedService.getListPrimary(listId);
-		spaceLogicSharedService.verificationEnableAll(primaryEntity.getSpaceId(),userId);
-		
-		//処理
-		listLogicSharedService.deleteList(listId);
-	}
-	
-	@Transactional(rollbackForClassName = "Exception")
 	public void updateList(ListForm form, int userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
 		//検証
 		ListPrimaryEntity primaryEntity = listPrimaryLogicSharedService.getListPrimary(form.getListId());
@@ -70,14 +79,5 @@ public class ListService {
 		
 		//処理
 		listLogicSharedService.updateListByPrimaryKeySelective(entity);
-	}
-	
-	public List<ContentEntity> getContentsInList(int listId,int userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
-		//検証
-		ListPrimaryEntity primaryEntity = listPrimaryLogicSharedService.getListPrimary(listId);
-		spaceLogicSharedService.verificationEnableSelect(primaryEntity.getSpaceId(),userId);
-		
-		//処理
-		return contentLogicSharedService.getContentsInList(listId);
 	}
 }

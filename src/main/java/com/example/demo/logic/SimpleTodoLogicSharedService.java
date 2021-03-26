@@ -24,23 +24,6 @@ public class SimpleTodoLogicSharedService {
 	@Autowired
 	UserInSpaceEntityMapper userInSpaceEntityMapper;
 
-	public void insert(SimpleTodoListEntity entity) {
-		simpleTodoListEntityMapper.insertSelective(entity);
-	}
-
-	public List<SimpleTodoListEntity> getSimpleTodoLists(int userId) {
-		//SQL作成
-		SimpleTodoListEntityExample selectDto = new SimpleTodoListEntityExample();
-		selectDto
-			.or()
-			.andUserIdEqualTo(userId);
-		selectDto
-			.setOrderByClause("list_date");
-		
-		//処理
-		return simpleTodoListEntityMapper.selectByExample(selectDto);
-	}
-
 	//内部の動き（SimpleTodoについて）を隠ぺいするために作られたため、安易にこの関数を無くしたりしないこと
 	public void createNewSimpleTodoListSpace(int spaceId, int userId) {
 		//スペースをシンプルToDo用に作成
@@ -67,5 +50,22 @@ public class SimpleTodoLogicSharedService {
 		
 		return simpleTodoListEntityMapper.selectByExample(selectDto)
 				.get(0).getSpaceId();
+	}
+
+	public List<SimpleTodoListEntity> getSimpleTodoLists(int userId) {
+		//SQL作成
+		SimpleTodoListEntityExample selectDto = new SimpleTodoListEntityExample();
+		selectDto
+			.or()
+			.andUserIdEqualTo(userId);
+		selectDto
+			.setOrderByClause("list_date");
+		
+		//処理
+		return simpleTodoListEntityMapper.selectByExample(selectDto);
+	}
+
+	public void insert(SimpleTodoListEntity entity) {
+		simpleTodoListEntityMapper.insertSelective(entity);
 	}
 }

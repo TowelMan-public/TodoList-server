@@ -26,22 +26,22 @@ public class ListInSpaceControl {
 	@Autowired
 	ListInSpaceServer listInSpaceServer;
 	
+	@GetMapping("count/day/get")
+	CountlistInSpaceEntity getCountListInDay(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInDayGroup.class) SpaceListForm form) 
+			throws HaveNotAuthorityInSpaceException {
+		return listInSpaceServer.getCountListInDay(form,user.getUserId());
+	}
+	
 	@GetMapping("count/month/get")
 	CountlistInSpaceEntity getCountListInMonth(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInMonthGroup.class) SpaceListForm form) 
 			throws HaveNotAuthorityInSpaceException {
 		return listInSpaceServer.getCountListInMonth(form,user.getUserId());
 	}
-	
+
 	@GetMapping("count/week/get")
 	CountlistInSpaceEntity getCountListInWeek(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInWeekGroup.class) SpaceListForm form) 
 			throws HaveNotAuthorityInSpaceException {
 		return listInSpaceServer.getCountListInWeek(form,user.getUserId());
-	}
-
-	@GetMapping("count/day/get")
-	CountlistInSpaceEntity getCountListInDay(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInDayGroup.class) SpaceListForm form) 
-			throws HaveNotAuthorityInSpaceException {
-		return listInSpaceServer.getCountListInDay(form,user.getUserId());
 	}
 	
 	@GetMapping("day/get")

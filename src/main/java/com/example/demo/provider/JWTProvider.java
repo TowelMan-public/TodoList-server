@@ -13,11 +13,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.UserDetailsImp;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JWTProvider {
@@ -57,6 +57,11 @@ public class JWTProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
+    // トークンからユーザ名を取得する
+    public String getSubject(final String token) {
+        return Jwts.parser().setSigningKey(TOKEN_SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+    }
+
     // リクエストのHeaderからトークンを取得する
     public String resolveToken(final HttpServletRequest request) {
         return request.getHeader("X-AUTH-TOKEN");
@@ -70,10 +75,5 @@ public class JWTProvider {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    // トークンからユーザ名を取得する
-    public String getSubject(final String token) {
-        return Jwts.parser().setSigningKey(TOKEN_SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
     }
 }

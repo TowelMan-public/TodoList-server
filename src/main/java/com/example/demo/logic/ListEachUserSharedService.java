@@ -21,9 +21,24 @@ public class ListEachUserSharedService {
 				makeSqlForGetListBySpaceId(spaceId,startDate,finishDate));
 	}
 
+	public List<TodoListEachUserEntity> getListBetoweenDateByUserId(int userId, Date startDate, Date finifhDate) {
+		return todoListEachUserEntityMapper.selectByExample(
+				makeSqlForGetListByUserId(userId,startDate,finifhDate));
+	}
+
 	public int getListCountBetoweenDateBySpaceId(int spaceId, Date startDate, Date finishDate) {
 		return (int)(todoListEachUserEntityMapper.countByExample(
 				makeSqlForGetListBySpaceId(spaceId,startDate,finishDate)));
+	}
+	
+	public int getListCountBetoweenDateByUserId(int userId, Date startDate, Date finifhDate) {
+		return (int)(todoListEachUserEntityMapper.countByExample(
+				makeSqlForGetListByUserId(userId,startDate,finifhDate)));
+	}
+
+	private Criteria makeSqlBetoweenDate(Date startDate, Date finishDate) {
+		return new TodoListEachUserEntityExample().or()
+				.andListDateBetween(startDate, finishDate);
 	}
 
 	private TodoListEachUserEntityExample makeSqlForGetListBySpaceId(int spaceId, Date startDate, Date finishDate) {
@@ -32,21 +47,6 @@ public class ListEachUserSharedService {
 		selectDto.or().andSpaceIdEqualTo(spaceId);
 		
 		return selectDto;
-	}
-	
-	private Criteria makeSqlBetoweenDate(Date startDate, Date finishDate) {
-		return new TodoListEachUserEntityExample().or()
-				.andListDateBetween(startDate, finishDate);
-	}
-
-	public int getListCountBetoweenDateByUserId(int userId, Date startDate, Date finifhDate) {
-		return (int)(todoListEachUserEntityMapper.countByExample(
-				makeSqlForGetListByUserId(userId,startDate,finifhDate)));
-	}
-
-	public List<TodoListEachUserEntity> getListBetoweenDateByUserId(int userId, Date startDate, Date finifhDate) {
-		return todoListEachUserEntityMapper.selectByExample(
-				makeSqlForGetListByUserId(userId,startDate,finifhDate));
 	}
 	
 	private TodoListEachUserEntityExample makeSqlForGetListByUserId(int userId, Date startDate, Date finishDate) {

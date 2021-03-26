@@ -10,9 +10,7 @@ import com.example.demo.entity.CountlistInSpaceEntity;
 import com.example.demo.entity.SpaceEntity;
 import com.example.demo.entity.TodoListEachUserEntity;
 import com.example.demo.entity.UserInSpaceEntity;
-import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.form.space.MySpaceListForm;
-import com.example.demo.form.space.SpaceListForm;
 import com.example.demo.logic.ListEachUserSharedService;
 import com.example.demo.logic.SpaceLogicSharedService;
 import com.example.demo.utility.DateUtilitySharedService;
@@ -26,6 +24,20 @@ public class MySpaceService {
 	@Autowired
 	DateUtilitySharedService dateUtilitySharedService;
 	
+	public CountlistInSpaceEntity getCountListInDay(MySpaceListForm form, int userId){
+		//データセット
+		DateUtilitySharedService.BetoweenDate betoweenDate =
+				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getWeekCount());
+		
+		//処理
+		int listCount = listEachUserSharedService.getListCountBetoweenDateByUserId(userId
+				,betoweenDate.getStartDate(),betoweenDate.getFinifhDate());
+		
+		CountlistInSpaceEntity entity=new CountlistInSpaceEntity();
+		entity.setCount(listCount);
+		return entity;
+	}
+
 	public CountlistInSpaceEntity getCountListInMonth(MySpaceListForm form, int userId){
 		//データセット
 		DateUtilitySharedService.BetoweenDate betoweenDate =
@@ -44,20 +56,6 @@ public class MySpaceService {
 		//データセット
 		DateUtilitySharedService.BetoweenDate betoweenDate =
 				dateUtilitySharedService.getBetoweenDateInWeek(form.getYear(), form.getMonth(),form.getWeekCount());
-		
-		//処理
-		int listCount = listEachUserSharedService.getListCountBetoweenDateByUserId(userId
-				,betoweenDate.getStartDate(),betoweenDate.getFinifhDate());
-		
-		CountlistInSpaceEntity entity=new CountlistInSpaceEntity();
-		entity.setCount(listCount);
-		return entity;
-	}
-
-	public CountlistInSpaceEntity getCountListInDay(MySpaceListForm form, int userId){
-		//データセット
-		DateUtilitySharedService.BetoweenDate betoweenDate =
-				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getWeekCount());
 		
 		//処理
 		int listCount = listEachUserSharedService.getListCountBetoweenDateByUserId(userId

@@ -26,19 +26,19 @@ public class MySpaceControl {
 	@Autowired
 	MySpaceService mySpaceService;
 	
+	@GetMapping("count/day/get")
+	public CountlistInSpaceEntity getCountMyListInDay(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.CountInDayGroup.class) MySpaceListForm form) {
+		return mySpaceService.getCountListInDay(form, user.getUserId());
+	}
+	
 	@GetMapping("count/month/get")
 	public CountlistInSpaceEntity getCountMyListInMonth(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInMonthGroup.class) MySpaceListForm form) {
 		return mySpaceService.getCountListInMonth(form, user.getUserId());
 	}
-	
+
 	@GetMapping("count/week/get")
 	public CountlistInSpaceEntity getCountMyListInWeek(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInWeekGroup.class) MySpaceListForm form) {
 		return mySpaceService.getCountListInWeek(form, user.getUserId());
-	}
-
-	@GetMapping("count/day/get")
-	public CountlistInSpaceEntity getCountMyListInDay(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.CountInDayGroup.class) MySpaceListForm form) {
-		return mySpaceService.getCountListInDay(form, user.getUserId());
 	}
 	
 	@GetMapping("day/get")
