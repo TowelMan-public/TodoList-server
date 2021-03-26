@@ -20,7 +20,7 @@ public class UserLogicSharedService {
 		UserEntity record = new UserEntity();
 		record.setUserId(userId);
 		record.setIsEnabled(0);
-		userMapper.updateByExampleSelective(record, new UserEntityExample());
+		userMapper.updateByPrimaryKeySelective(record);
 	}
 	
 	//ユーザー名から取得
