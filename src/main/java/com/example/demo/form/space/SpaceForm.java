@@ -1,5 +1,7 @@
 package com.example.demo.form.space;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.example.demo.RegexpMessage;
@@ -15,6 +17,7 @@ public class SpaceForm {
 	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.ScopeUpdateGroup.class,Groups.MakeGroup.class})
 	private Integer scopeId;
 	
-	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.MakeGroup.class})
+	@Max(value=3, message=RegexpMessage.SCOPE,groups = {Groups.MakeGroup.class})
+	@Min(value=1, message=RegexpMessage.SCOPE,groups = {Groups.MakeGroup.class})
 	private String spaceName;
 }

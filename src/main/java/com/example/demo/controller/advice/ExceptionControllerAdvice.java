@@ -8,8 +8,8 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -18,7 +18,7 @@ import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.exception.SpaceIsnotPublicException;
 import com.example.demo.exception.UserAleadyJoinSpaceException;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(AlreadyUsedException.class)
