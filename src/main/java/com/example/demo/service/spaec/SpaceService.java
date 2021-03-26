@@ -2,6 +2,7 @@ package com.example.demo.service.spaec;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.configurer.UserAuthorityInSpaceConstant;
 import com.example.demo.entity.SpaceEntity;
@@ -21,6 +22,7 @@ public class SpaceService {
 	@Autowired
 	UserInSpaceLogicSharedService userInSpaceLogicSharedService;
 	
+	@Transactional(rollbackForClassName = "Exception")
 	public void deleteSpace(Integer spaceId, Integer userId) throws HaveNotAuthorityInSpaceException {
 		//検証
 		spaceLogicSharedService.verificationEnableAll(spaceId,userId);
@@ -37,6 +39,7 @@ public class SpaceService {
 		return spaceLogicSharedService.getSpaceBySpaceid(spaceId);
 	}
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void makeSpace(SpaceForm form, Integer userId) {
 		//データセット
 		SpaceEntity entity = new SpaceEntity();
@@ -51,6 +54,7 @@ public class SpaceService {
 				new UserInSpaceEntity(entity.getSpaceId(),userId,UserAuthorityInSpaceConstant.SUPER));
 	}
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void secessionSpace(Integer userId, Integer spaceId) throws HaveNotAuthorityInSpaceException {
 		//検証
 		spaceLogicSharedService.verificationEnableSelect(spaceId, userId);
@@ -59,6 +63,7 @@ public class SpaceService {
 		userInSpaceLogicSharedService.eraseUserInSpace(spaceId,userId);
 	}
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void updateScope(SpaceForm form, Integer userId) throws HaveNotAuthorityInSpaceException {
 		//データセット
 		SpaceEntity entity = new SpaceEntity();

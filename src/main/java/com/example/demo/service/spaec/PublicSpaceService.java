@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.configurer.UserAuthorityInSpaceConstant;
 import com.example.demo.entity.SpaceEntity;
@@ -24,6 +25,7 @@ public class PublicSpaceService {
 		return spaceLogicSharedService.getPublicSpace(userId);
 	}
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void joinSpace(int spaceId, int userId) throws SpaceIsnotPublicException, UserAleadyJoinSpaceException {
 		//検証
 		spaceLogicSharedService.verificationIsPublicScope(spaceId);

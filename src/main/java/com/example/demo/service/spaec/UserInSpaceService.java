@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
@@ -21,6 +22,8 @@ public class UserInSpaceService {
 	SpaceLogicSharedService spaceLogicSharedService;
 	@Autowired
 	UserInSpaceLogicSharedService userInSpaceLogicSharedService;
+	
+	@Transactional(rollbackForClassName = "Exception")
 	public void deleteUserInSpace(int userId, int spaceId, String targetUsername) throws NotFoundException, HaveNotAuthorityInSpaceException {
 		//検証
 		verification(spaceId, userId);
@@ -44,6 +47,7 @@ public class UserInSpaceService {
 		return userInSpaceLogicSharedService.getUserBySpaceId(spaceId);
 	}
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void insertUserInSpace(int userId, UserInSpaceForm form) throws NotFoundException, HaveNotAuthorityInSpaceException{
 		//検証
 		verification(form.getSpaceId(), userId);
@@ -59,6 +63,7 @@ public class UserInSpaceService {
 		userInSpaceLogicSharedService.insertUserInSpace(entity);
 	}
 	
+	@Transactional(rollbackForClassName = "Exception")
 	public void updateUserAuthortyInSpace(int userId, UserInSpaceForm form) throws NotFoundException, HaveNotAuthorityInSpaceException {
 		//検証
 		verification(form.getSpaceId(), userId);

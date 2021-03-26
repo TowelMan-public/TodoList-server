@@ -3,6 +3,7 @@ package com.example.demo.service;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.ContentEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
@@ -20,6 +21,7 @@ public class ContentService {
 	@Autowired
 	ContentLogicSharedService contentLogicSharedService;
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void deleteContent(Integer contentId, int userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
 		//検証
 		int listId = contentLogicSharedService.getContentByContentId(contentId)
@@ -46,6 +48,7 @@ public class ContentService {
 		return entity;
 	}
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void insertContent(ContentForm form, int userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
 		//検証
 		int spaceId = listPrimaryLogicSharedService.getListPrimary(form.getListId())
@@ -62,6 +65,7 @@ public class ContentService {
 		contentLogicSharedService.insert(entity);
 	}
 
+	@Transactional(rollbackForClassName = "Exception")
 	public void updateContent(ContentForm form, int userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
 		//検証
 		int listId = contentLogicSharedService.getContentByContentId(form.getContentId())
