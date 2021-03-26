@@ -33,7 +33,7 @@ public class ContentLogicSharedService {
 		ContentEntity entity = contentEntityMapper.selectByPrimaryKey(contentId);
 		//例外
 		if(entity == null)
-			throw new NotFoundException("contentId is not found");
+			throw new NotFoundException("NotFound contentId");
 		
 		return entity;
 	}

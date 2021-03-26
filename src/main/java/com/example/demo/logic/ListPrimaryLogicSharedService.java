@@ -28,7 +28,7 @@ public class ListPrimaryLogicSharedService {
 	public ListPrimaryEntity getListPrimary(int listId) throws NotFoundException{
 		ListPrimaryEntity entity = listPrimaryEntityMapper.selectByPrimaryKey(listId);
 		if(entity == null || entity.getSpaceId() == null)
-			throw new NotFoundException("listid is not found");
+			throw new NotFoundException("NotFound listid");
 		return entity;
 	}
 }

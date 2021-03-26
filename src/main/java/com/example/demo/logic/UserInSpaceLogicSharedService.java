@@ -45,6 +45,6 @@ public class UserInSpaceLogicSharedService {
 			.andUserIdEqualTo(userId);
 		
 		if(userInSpaceEntityMapper.countByExample(selectDto) == 0)
-			throw new UserAleadyJoinSpaceException("user have aleady joined space");
+			throw new UserAleadyJoinSpaceException("UserAleadyJoinSpaceException");
 	}
 }

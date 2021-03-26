@@ -45,7 +45,7 @@ public class SpaceLogicSharedService {
 		}
 		
 		//例外
-		throw new HaveNotAuthorityInSpaceException("userId is not able insert , update and delete in spaceId");
+		throw new HaveNotAuthorityInSpaceException("HaveNotAuthorityInSpaceException all");
 	}
 	
 	public void verificationEnableSelect(int spaceId, int userId) throws HaveNotAuthorityInSpaceException {
@@ -57,7 +57,7 @@ public class SpaceLogicSharedService {
 			return;
 		
 		//例外
-		throw new HaveNotAuthorityInSpaceException("userId is not able select in spaceId");
+		throw new HaveNotAuthorityInSpaceException("HaveNotAuthorityInSpaceException select");
 	}
 
 	public List<UserInSpaceEntity> getSpaceIdEachUser(int userId) {
@@ -99,7 +99,7 @@ public class SpaceLogicSharedService {
 		
 		//処理
 		if(spaceEntityMapper.countByExample(selectDto) == 0) 
-			throw new SpaceIsnotPublicException("space is not public");
+			throw new SpaceIsnotPublicException("SpaceIsnotPublicException");
 	}
 
 	public List<SpaceEntity> getPublicSpace(int userId) {

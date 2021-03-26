@@ -34,7 +34,7 @@ public class UserLogicSharedService {
 			return entityList.get(0);
 		}
 		catch(IndexOutOfBoundsException e) {
-			throw new UsernameNotFoundException("Username is not found.");
+			throw new UsernameNotFoundException("UsernameNotFoundException");
 		}
 	}
 	
@@ -42,14 +42,14 @@ public class UserLogicSharedService {
 	public void verificationExistsUsername(String username) throws NotFoundException{
 		//検証
 		if(userMapper.countByExample(makeSelectByUsernameSql(username)) == 0)
-			throw new NotFoundException("Username is not found.");
+			throw new NotFoundException("NotFoundException username");
 	}
 	
 	//ユーザー名が使われていないかを検証する
 	public void verificationNotUsedUsername(String username) throws AlreadyUsedException{
 		//検証
 		if(userMapper.countByExample(makeSelectByUsernameSql(username)) == 0)
-			throw new AlreadyUsedException("Username have already used.");
+			throw new AlreadyUsedException("AlreadyUsedException username");
 	}
 	
 	//ユーザー名を指定しての検索のSQL作成
