@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.configurer;
 
 public class UserAuthorityInSpaceConstant {
 	public static final int MASTER = 1;

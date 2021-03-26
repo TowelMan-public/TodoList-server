@@ -3,7 +3,7 @@ package com.example.demo.service.spaec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.UserAuthorityInSpaceConstant;
+import com.example.demo.configurer.UserAuthorityInSpaceConstant;
 import com.example.demo.entity.SpaceEntity;
 import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;

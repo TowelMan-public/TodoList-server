@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.demo.RegexpMessage;
+import com.example.demo.configurer.RegexpMessage;
 
 import lombok.Data;
 

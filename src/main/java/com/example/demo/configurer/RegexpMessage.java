@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.configurer;
 
 public class RegexpMessage {
 	public static final String AUTHORITY = "1:MASTER 2:SUPER 3:USER の中から選択して下さい";

@@ -4,7 +4,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-import com.example.demo.RegexpMessage;
+import com.example.demo.configurer.RegexpMessage;
 import com.example.demo.form.Groups;
 
 import lombok.Data;

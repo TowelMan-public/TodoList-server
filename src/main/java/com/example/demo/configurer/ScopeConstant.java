@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.configurer;
 
 public class ScopeConstant {
 	public static final int PRIVATE = 3;

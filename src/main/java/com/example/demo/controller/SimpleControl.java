@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.UrlConfing;
+import com.example.demo.configurer.UrlConfing;
 import com.example.demo.entity.SimpleTodoListEntity;
 import com.example.demo.entity.UserDetailsImp;
 import com.example.demo.form.SimpleTodoForm;

@@ -2,7 +2,7 @@ package com.example.demo.form;
 
 import javax.validation.constraints.NotBlank;
 
-import com.example.demo.RegexpMessage;
+import com.example.demo.configurer.RegexpMessage;
 
 import lombok.Data;
 

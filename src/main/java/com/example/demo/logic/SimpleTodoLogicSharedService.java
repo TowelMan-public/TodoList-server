@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.ScopeConstant;
-import com.example.demo.UserAuthorityInSpaceConstant;
+import com.example.demo.configurer.ScopeConstant;
+import com.example.demo.configurer.UserAuthorityInSpaceConstant;
 import com.example.demo.dto.SimpleTodoListEntityExample;
 import com.example.demo.entity.SimpleTodoListEntity;
 import com.example.demo.entity.SpaceEntity;
