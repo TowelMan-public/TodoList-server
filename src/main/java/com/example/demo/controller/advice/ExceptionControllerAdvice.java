@@ -6,11 +6,10 @@ import javax.validation.ConstraintViolationException;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.example.demo.exception.AlreadyUsedException;
@@ -18,78 +17,62 @@ import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.exception.SpaceIsnotPublicException;
 import com.example.demo.exception.UserAleadyJoinSpaceException;
 
+import lombok.Value;
+
 @RestControllerAdvice
 public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(AlreadyUsedException.class)
-	public ResponseEntity<Object> alreadyUsedExceptionHandle(AlreadyUsedException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "AlreadyUsedException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
+	@ResponseStatus(HttpStatus.NOT_EXTENDED)
+	public ErrorResponse alreadyUsedExceptionHandle(AlreadyUsedException e) {
+		return new ErrorResponse("AlreadyUsedException",e.getMessage());
 	}
 	
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<Object> constraintViolationExceptionHandle(ConstraintViolationException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "ConstraintViolationException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorResponse constraintViolationExceptionHandle(ConstraintViolationException e) {
+		return new ErrorResponse("ConstraintViolationException",e.getMessage());
 	}
 	
 	@ExceptionHandler(HaveNotAuthorityInSpaceException.class)
-	public ResponseEntity<Object> haveNotAuthorityInSpaceExceptionHandle(HaveNotAuthorityInSpaceException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "HaveNotAuthorityInSpaceException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
+	@ResponseStatus(HttpStatus.NOT_EXTENDED)
+	public ErrorResponse haveNotAuthorityInSpaceExceptionHandle(HaveNotAuthorityInSpaceException e) {
+		return new ErrorResponse("HaveNotAuthorityInSpaceException",e.getMessage());
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Object> methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "MethodArgumentNotValidException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorResponse methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e) {
+		return new ErrorResponse("MethodArgumentNotValidException",e.getMessage());
 	}
 	
 	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<Object> notFoundExceptionHandle(NotFoundException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "NotFoundException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorResponse notFoundExceptionHandle(NotFoundException e) {
+		return new ErrorResponse("NotFoundException",e.getMessage());
 	}
 	
 	@ExceptionHandler(SpaceIsnotPublicException.class)
-	public ResponseEntity<Object> spaceIsnotPublicExceptionHandle(SpaceIsnotPublicException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "SpaceIsnotPublicException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorResponse spaceIsnotPublicExceptionHandle(SpaceIsnotPublicException e) {
+		return new ErrorResponse("SpaceIsnotPublicException",e.getMessage());
 	}
 	
 	@ExceptionHandler(TypeMismatchException.class)
-	public ResponseEntity<Object> typeMismatchExceptionHandle(TypeMismatchException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "TypeMismatchException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorResponse typeMismatchExceptionHandle(TypeMismatchException e) {
+		return new ErrorResponse("TypeMismatchException",e.getMessage());
 	}
 	
 	@ExceptionHandler(UserAleadyJoinSpaceException.class)
-	public ResponseEntity<Object> userAleadyJoinSpaceException(UserAleadyJoinSpaceException e, WebRequest request) {
-		return super.handleExceptionInternal(e,
-                "UserAleadyJoinSpaceException",
-                null,
-                HttpStatus.BAD_REQUEST,
-                request);
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorResponse userAleadyJoinSpaceException(UserAleadyJoinSpaceException e) {
+		return new ErrorResponse("UserAleadyJoinSpaceException",e.getMessage());
+	}
+	
+	@Value
+	public class ErrorResponse {
+	    String errorCode;
+	    String message;
 	}
 }
