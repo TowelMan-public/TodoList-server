@@ -23,7 +23,7 @@ public class ListPrimaryLogicSharedService {
 		//追加するデータのセット
 		ListPrimaryEntity entity = new ListPrimaryEntity();
 		entity.setSpaceId(spaceId);
-		entity.setSpaceId(null);//自動採番の値を使用
+		entity.setListId(null);//自動採番の値を使用
 		
 		//処理
 		listPrimaryEntityMapper.insertSelective(entity);
