@@ -43,13 +43,7 @@ public class SimpleTodoLogicSharedService {
 	}
 
 	public int getSimpleSpaceId(int userId) {
-		//SQL作成
-		SimpleTodoListEntityExample selectDto = new SimpleTodoListEntityExample();
-		selectDto.or()
-			.andUserIdEqualTo(userId);
-		
-		return simpleTodoListEntityMapper.selectByExample(selectDto)
-				.get(0).getSpaceId();
+		return simpleTodoListEntityMapper.getSimpleSpaceIdByUserId(userId);
 	}
 
 	public List<SimpleTodoListEntity> getSimpleTodoLists(int userId) {

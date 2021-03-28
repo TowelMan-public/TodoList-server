@@ -13,6 +13,7 @@ import com.example.demo.configurer.UrlConfing;
 import com.example.demo.entity.SpaceEntity;
 import com.example.demo.entity.UserDetailsImp;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
+import com.example.demo.exception.IsSimpleSpaceException;
 import com.example.demo.form.Groups;
 import com.example.demo.form.space.SpaceForm;
 import com.example.demo.service.spaec.SpaceService;
@@ -24,12 +25,14 @@ public class SpaceControl {
 	SpaceService spaceService;
 	
 	@PostMapping("delete")
-	public void deleteSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.DeleteGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
+	public void deleteSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.DeleteGroup.class) SpaceForm form)
+			throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		spaceService.deleteSpace(form.getSpaceId(),user.getUserId());
 	}
 	
 	@GetMapping("get")
-	public SpaceEntity getSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
+	public SpaceEntity getSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) SpaceForm form)
+			throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException{
 		return spaceService.getSpace(user.getUserId(),form.getSpaceId());
 	}
 	
@@ -39,11 +42,13 @@ public class SpaceControl {
 	}
 	
 	@PostMapping("secession")
-	public void secessionSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.Secession.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
+	public void secessionSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.Secession.class) SpaceForm form)
+			throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		spaceService.secessionSpace(user.getUserId(),form.getSpaceId());
 	}
 	@PostMapping("scope/update")
-	public void updateScope(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ScopeUpdateGroup.class) SpaceForm form) throws HaveNotAuthorityInSpaceException {
+	public void updateScope(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ScopeUpdateGroup.class) SpaceForm form)
+			throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		spaceService.updateScope(form,user.getUserId());
 	}
 }

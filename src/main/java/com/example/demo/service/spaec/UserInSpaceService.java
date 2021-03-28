@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
+import com.example.demo.exception.IsSimpleSpaceException;
 import com.example.demo.form.space.UserInSpaceForm;
 import com.example.demo.logic.SpaceLogicSharedService;
 import com.example.demo.logic.UserInSpaceLogicSharedService;
@@ -24,7 +25,8 @@ public class UserInSpaceService {
 	UserInSpaceLogicSharedService userInSpaceLogicSharedService;
 	
 	@Transactional(rollbackForClassName = "Exception")
-	public void deleteUserInSpace(int userId, int spaceId, String targetUsername) throws NotFoundException, HaveNotAuthorityInSpaceException {
+	public void deleteUserInSpace(int userId, int spaceId, String targetUsername)
+			throws NotFoundException, HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		//検証
 		verification(spaceId, userId);
 		
@@ -39,7 +41,8 @@ public class UserInSpaceService {
 		return userLogicSharedService.getUserByUsername(username).getUserId();
 	}
 
-	public List<UserInSpaceEntity> getUserInSpace(int userId, int spaceId) throws HaveNotAuthorityInSpaceException {
+	public List<UserInSpaceEntity> getUserInSpace(int userId, int spaceId)
+			throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		//検証
 		verification(spaceId, userId);
 		
@@ -48,7 +51,8 @@ public class UserInSpaceService {
 	}
 
 	@Transactional(rollbackForClassName = "Exception")
-	public void insertUserInSpace(int userId, UserInSpaceForm form) throws NotFoundException, HaveNotAuthorityInSpaceException{
+	public void insertUserInSpace(int userId, UserInSpaceForm form) 
+			throws NotFoundException, HaveNotAuthorityInSpaceException, IsSimpleSpaceException{
 		//検証
 		verification(form.getSpaceId(), userId);
 		
@@ -64,7 +68,8 @@ public class UserInSpaceService {
 	}
 	
 	@Transactional(rollbackForClassName = "Exception")
-	public void updateUserAuthortyInSpace(int userId, UserInSpaceForm form) throws NotFoundException, HaveNotAuthorityInSpaceException {
+	public void updateUserAuthortyInSpace(int userId, UserInSpaceForm form)
+			throws NotFoundException, HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		//検証
 		verification(form.getSpaceId(), userId);
 		
@@ -80,7 +85,8 @@ public class UserInSpaceService {
 	}
 	
 	//このクラスで提供する機能全てで行う検証
-	private void verification(int spaceId, int userId) throws HaveNotAuthorityInSpaceException {
+	private void verification(int spaceId, int userId) throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
+		spaceLogicSharedService.verificationIsnotSimpleSpace(spaceId);
 		spaceLogicSharedService.verificationEnableAll(spaceId, userId);
 	}
 }

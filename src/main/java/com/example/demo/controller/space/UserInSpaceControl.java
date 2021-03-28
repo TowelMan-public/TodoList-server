@@ -16,6 +16,7 @@ import com.example.demo.configurer.UrlConfing;
 import com.example.demo.entity.UserDetailsImp;
 import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
+import com.example.demo.exception.IsSimpleSpaceException;
 import com.example.demo.form.Groups;
 import com.example.demo.form.space.UserInSpaceForm;
 import com.example.demo.service.spaec.UserInSpaceService;
@@ -28,25 +29,25 @@ public class UserInSpaceControl {
 	
 	@PostMapping("delete")
 	public void deleteUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.DeleteGroup.class) UserInSpaceForm form)
-			throws NotFoundException, HaveNotAuthorityInSpaceException {
+			throws NotFoundException, HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		userInSpaceService.deleteUserInSpace(user.getUserId(),form.getSpaceId(),form.getUsername());
 	}
 	
 	@GetMapping("get")
 	public List<UserInSpaceEntity> getUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) UserInSpaceForm form)
-			throws HaveNotAuthorityInSpaceException {
+			throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		return userInSpaceService.getUserInSpace(user.getUserId(),form.getSpaceId());
 	}
 	
 	@PostMapping("insert")
 	public void insertUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.InsertGroup.class) UserInSpaceForm form)
-			throws NotFoundException, HaveNotAuthorityInSpaceException {
+			throws NotFoundException, HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		userInSpaceService.insertUserInSpace(user.getUserId(),form);
 	}
 	
 	@PostMapping("update")
 	public void updateUserAuthortyInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.UpdateGroup.class) UserInSpaceForm form)
-			throws NotFoundException, HaveNotAuthorityInSpaceException {
+			throws NotFoundException, HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		userInSpaceService.updateUserAuthortyInSpace(user.getUserId(),form);
 	}
 }

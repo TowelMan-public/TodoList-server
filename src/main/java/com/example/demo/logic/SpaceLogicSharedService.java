@@ -13,6 +13,7 @@ import com.example.demo.dto.UserInSpaceEntityExample;
 import com.example.demo.entity.SpaceEntity;
 import com.example.demo.entity.UserInSpaceEntity;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
+import com.example.demo.exception.IsSimpleSpaceException;
 import com.example.demo.exception.SpaceIsnotPublicException;
 import com.example.demo.repository.PublicSpaceMapper;
 import com.example.demo.repository.SpaceEntityMapper;
@@ -107,5 +108,17 @@ public class SpaceLogicSharedService {
 		//処理
 		if(spaceEntityMapper.countByExample(selectDto) == 0) 
 			throw new SpaceIsnotPublicException("SpaceIsnotPublicException");
+	}
+
+	public void verificationIsnotSimpleSpace(Integer spaceId) throws IsSimpleSpaceException {
+		//SQL作成
+		SpaceEntityExample selectDto = new SpaceEntityExample();
+		selectDto.or()
+			.andSpaceIdEqualTo(spaceId)
+			.andIsSimpleEqualTo(true);
+		
+		//処理
+		if(spaceEntityMapper.countByExample(selectDto) == 1) 
+			throw new IsSimpleSpaceException("space is simple");
 	}
 }

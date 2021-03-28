@@ -65,4 +65,6 @@ public interface SimpleTodoListEntityMapper {
      * @mbg.generated Sun Mar 14 11:52:35 JST 2021
      */
     int updateByExampleSelective(@Param("record") SimpleTodoListEntity record, @Param("example") SimpleTodoListEntityExample example);
+    
+    Integer getSimpleSpaceIdByUserId(Integer userId);
 }
