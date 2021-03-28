@@ -10,8 +10,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import com.example.demo.exception.AlreadyUsedException;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.exception.SpaceIsnotPublicException;
@@ -20,7 +18,7 @@ import com.example.demo.exception.UserAleadyJoinSpaceException;
 import lombok.Value;
 
 @RestControllerAdvice
-public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler{
+public class ExceptionControllerAdvice{
 
 	@ExceptionHandler(AlreadyUsedException.class)
 	@ResponseStatus(HttpStatus.NOT_EXTENDED)
