@@ -62,7 +62,7 @@ public class UserLogicSharedService {
 	//ユーザー名が使われていないかを検証する
 	public void verificationNotUsedUsername(String username) throws AlreadyUsedException{
 		//検証
-		if(userMapper.countByExample(makeSelectByUsernameSql(username)) == 0)
+		if(userMapper.countByExample(makeSelectByUsernameSql(username)) != 0)
 			throw new AlreadyUsedException("AlreadyUsedException username");
 	}
 }
