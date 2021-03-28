@@ -50,7 +50,6 @@ class ContentLogicSharedServiceTest {
 	
 	@Test
 	@Transactional
-	@DatabaseSetup("/logic/ContentLogicSharedServiceTest.xml")
 	//結果を見る
 	void deleteContentTest() {
 		try {
@@ -65,7 +64,6 @@ class ContentLogicSharedServiceTest {
 	
 	@Test
 	@Transactional
-	@DatabaseSetup("/logic/ContentLogicSharedServiceTest.xml")
 	void getContentByContentIdTest() {
 		try {
 			Assertions.assertNotNull(
@@ -92,7 +90,6 @@ class ContentLogicSharedServiceTest {
 	
 	@Test
 	@Transactional
-	@DatabaseSetup("/logic/ContentLogicSharedServiceTest.xml")
 	//問題なく終わればよし
 	void insertTest() {
 		ContentEntity entity = new ContentEntity();
@@ -111,7 +108,6 @@ class ContentLogicSharedServiceTest {
 	
 	@Test
 	@Transactional
-	@DatabaseSetup("/logic/ContentLogicSharedServiceTest.xml")
 	//結果を見る
 	void updateContent() {
 		ContentEntity entity = new ContentEntity();
