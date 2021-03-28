@@ -64,8 +64,4 @@ public class SimpleTodoLogicSharedService {
 		//処理
 		return simpleTodoListEntityMapper.selectByExample(selectDto);
 	}
-
-	public void insert(SimpleTodoListEntity entity) {
-		simpleTodoListEntityMapper.insertSelective(entity);
-	}
 }

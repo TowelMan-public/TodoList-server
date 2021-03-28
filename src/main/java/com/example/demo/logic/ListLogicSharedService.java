@@ -22,7 +22,7 @@ public class ListLogicSharedService {
 	}
 
 	public void insert(ListEntity entity) {
-		listEntityMapper.insert(entity);
+		listEntityMapper.insertSelective(entity);
 	}
 
 	public void updateListByPrimaryKeySelective(ListEntity entity) {
