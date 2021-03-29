@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.repository.EraseMapper">
+	<delete id="eraseUnenabledUser">
+		DELETE FROM users
+		WHERE
+			is_enabled = 0
+	</delete>
+	
+	<delete id="eraseUnenabledSpace" parameterType="java.util.Date">
+		DELETE FROM todo_space
+		WHERE
+			space_id IN(
+				SELECT
+					space_id
+				FROm
+					tpdp_space_details
+				WHERE
+					is_enabled = 0
+				  AND
+				  	#{beforDate} > update_timestamp
+			)
+	</delete>
+	
+	<delete id="eraseUnenabledList" parameterType="java.util.Date">
+		DELETE FROM todo_list
+		WHERE
+			list_id IN(
+				SELECT
+					list_id
+				FROm
+					todo_list_details
+				WHERE
+					is_enabled = 0
+				  AND
+				  	#{beforDate} > update_timestamp
+			)
+	</delete>
+	
+	<delete id="eraseUnenabledContent" parameterType="java.util.Date">
+		DELETE FROM todo_content
+		WHERE
+			is_enabled = 0
+		  AND
+		  	#{beforDate} > update_timestamp
+	</delete>
+</mapper>
