@@ -24,7 +24,7 @@ public class DateUtilitySharedService {
 		Calendar calendar = Calendar.getInstance();
 		
 		//始まりを求める
-		calendar.set(year,month - 1,day);
+		calendar.set(year,month - 1,day,0,0,0);
 		betoweenDate.setStartDate(calendar.getTime());
 		
 		//終わりを求める
@@ -40,7 +40,7 @@ public class DateUtilitySharedService {
 		Calendar calendar = Calendar.getInstance();
 		
 		//始まりを求める
-		calendar.set(year, month - 1,1);
+		calendar.set(year, month - 1,1,0,0,0);
 		betoweenDate.setStartDate(calendar.getTime());
 		
 		//終わりを求める
@@ -54,10 +54,10 @@ public class DateUtilitySharedService {
 	public BetoweenDate getBetoweenDateInWeek(int year,int month,int weekCount) {
 		BetoweenDate betoweenDate = new BetoweenDate();
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(year, month - 1,1);
+		calendar.set(year, month - 1,1,0,0,0);
 		
 		//第weekCount週目の範囲にある日付にする
-		for(int i = 1;i <= weekCount;i++) 
+		for(int i = 1;i < weekCount;i++) 
 			calendar.add(Calendar.DAY_OF_MONTH, 7);
 		
 		//始まりを求める
