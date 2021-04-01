@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.UserDetailsImp;
+import com.example.demo.service.UserDetailsServiceImp;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -22,11 +23,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JWTProvider {
 
     // Signatureのエンコードに使うシークレットキー
-    private static final String TOKEN_SECRET_KEY = "This is secrect!";
+    public static final String TOKEN_SECRET_KEY = "This is secrect!";
 
     // ユーザ情報を取得するためのサービスクラス
     @Autowired
-    private UserDetailsService service;
+    private UserDetailsServiceImp service;
 
     // UserオブジェクトからJWTを作成する
     public String createToken(UserDetailsImp user) {

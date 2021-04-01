@@ -28,10 +28,10 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) 
     		throws IOException, ServletException {
     	
-        final String token = this.provider.resolveToken((HttpServletRequest) request);
+        final String token = provider.resolveToken((HttpServletRequest) request);
         
-        if (token != null && this.provider.validateToken(token)) {
-            final Authentication auth = this.provider.getAuthentication(token);
+        if (token != null && provider.validateToken(token)) {
+            final Authentication auth = provider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
         
