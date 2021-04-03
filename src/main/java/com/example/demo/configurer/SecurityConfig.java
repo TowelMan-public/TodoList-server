@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import com.example.demo.filter.JWTAuthenticationFilter;
+import com.example.demo.handler.AuthenticationEntryPointImp;
 import com.example.demo.handler.AuthenticationFailureHandlerImp;
 import com.example.demo.handler.AuthenticationSuccessHandlerImp;
 import com.example.demo.service.UserDetailsServiceImp;
@@ -26,6 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     AuthenticationSuccessHandlerImp authenticationSuccessHandlerImp;
 	@Autowired
     AuthenticationFailureHandlerImp authenticationFailureHandlerImp;
+	@Autowired
+	AuthenticationEntryPointImp authenticationEntryPointImp;
     @Autowired
     UserDetailsServiceImp userDetailsServiceImp;
     
@@ -39,16 +42,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	                .httpBasic().disable()
+	                .csrf().disable()
+	                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                //ログイン不要でアクセス可能に設定
-                .antMatchers(UrlConfing.ROOT_URL + "/login").permitAll()
-                .antMatchers(UrlConfing.ROOT_URL + "/user/insert").permitAll()
-                //上記以外は直リンク禁止
-                .anyRequest().authenticated()
+	                //ログイン不要でアクセス可能に設定
+	                .antMatchers(UrlConfing.ROOT_URL + "/login").permitAll()
+	                .antMatchers(UrlConfing.ROOT_URL + "/user/insert").permitAll()
+	                //上記以外は直リンク禁止
+	                .anyRequest().authenticated()
                 .and()
                 //ログイン
                 .formLogin()
@@ -60,6 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
 	                .logoutUrl(UrlConfing.ROOT_URL + "/logout")
 	                .logoutSuccessHandler(httpStatusReturningLogoutSuccessHandler())
+                .and()
+                .exceptionHandling()
+                	.authenticationEntryPoint(authenticationEntryPointImp)
                 .and()
                 // デフォルトのFilter設定を変える
                 .addFilterBefore(this.filter, UsernamePasswordAuthenticationFilter.class);
