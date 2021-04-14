@@ -40,6 +40,11 @@ public class UserInSpaceService {
 		userLogicSharedService.verificationExistsUsername(username);
 		return userLogicSharedService.getUserByUsername(username).getUserId();
 	}
+	
+	//ユーザーIDからユーザー名を取得する
+	private String getUserIdByUsername(Integer userId) {
+		return userLogicSharedService.getUserByUserId(userId).getUsername();
+	}
 
 	public List<UserInSpaceEntity> getUserInSpace(int userId, int spaceId)
 			throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
@@ -47,7 +52,12 @@ public class UserInSpaceService {
 		verification(spaceId, userId);
 		
 		//処理
-		return userInSpaceLogicSharedService.getUserBySpaceId(spaceId);
+		List<UserInSpaceEntity> list = userInSpaceLogicSharedService.getUserBySpaceId(spaceId);
+		list.forEach(entity ->{
+			entity.setUsername(
+					getUserIdByUsername(entity.getUserId()));
+		});
+		return list;
 	}
 
 	@Transactional(rollbackForClassName = "Exception")

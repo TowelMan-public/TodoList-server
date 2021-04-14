@@ -65,4 +65,8 @@ public class UserLogicSharedService {
 		if(userMapper.countByExample(makeSelectByUsernameSql(username)) != 0)
 			throw new AlreadyUsedException("AlreadyUsedException username");
 	}
+
+	public UserEntity getUserByUserId(Integer userId) {
+		return userMapper.selectByPrimaryKey(userId);
+	}
 }
