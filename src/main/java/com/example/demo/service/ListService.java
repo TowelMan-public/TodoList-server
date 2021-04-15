@@ -80,4 +80,12 @@ public class ListService {
 		//処理
 		listLogicSharedService.updateListByPrimaryKeySelective(entity);
 	}
+
+	public ListEntity getList(Integer listId, Integer userId) throws NotFoundException, HaveNotAuthorityInSpaceException {
+		ListPrimaryEntity primaryEntity = listPrimaryLogicSharedService.getListPrimary(listId);
+		spaceLogicSharedService.verificationEnableSelect(primaryEntity.getSpaceId(),userId);
+		
+		//処理
+		return listLogicSharedService.selectList(listId);
+	}
 }

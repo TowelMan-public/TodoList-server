@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.configurer.UrlConfing;
 import com.example.demo.entity.ContentEntity;
+import com.example.demo.entity.ListEntity;
 import com.example.demo.entity.UserDetailsImp;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.form.Groups;
@@ -33,6 +34,11 @@ public class ListControl {
 	}
 	
 	@GetMapping("get")
+	public ListEntity getList(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) ListForm form) throws HaveNotAuthorityInSpaceException, NotFoundException{
+		return service.getList(form.getListId(),user.getUserId());
+	}
+	
+	@GetMapping("get/content")
 	public List<ContentEntity> getContentsInList(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ContentGetGroup.class) ListForm form) throws HaveNotAuthorityInSpaceException, NotFoundException{
 		return service.getContentsInList(form.getListId(),user.getUserId());
 	}

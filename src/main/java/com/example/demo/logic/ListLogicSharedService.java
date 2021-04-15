@@ -29,4 +29,8 @@ public class ListLogicSharedService {
 		entity.setUpdateTimestamp(new Date());//タイムスタンプ
 		listEntityMapper.updateByPrimaryKeySelective(entity);
 	}
+
+	public ListEntity selectList(Integer listId) {
+		return listEntityMapper.selectByPrimaryKey(listId);
+	}
 }
