@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS todo_space;
+
+CREATE TABLE todo_space(
+	spaceId INT AUTO_INCREMENT PRIMARY KEY
+);
