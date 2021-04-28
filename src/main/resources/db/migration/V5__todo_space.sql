@@ -1,0 +1,3 @@
+CREATE TABLE todo_space(
+	space_id INT AUTO_INCREMENT PRIMARY KEY
+);

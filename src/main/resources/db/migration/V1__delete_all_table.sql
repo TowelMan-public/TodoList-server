@@ -1,0 +1,11 @@
+DROP VIEW IF EXISTS simple_todo_list;
+DROP VIEW IF EXISTS todo_list_each_user;
+DROP TABLE IF EXISTS todo_content;
+DROP TABLE IF EXISTS todo_list_details;
+DROP TABLE IF EXISTS todo_list;
+DROP TABLE IF EXISTS have_user_list;
+DROP TABLE IF EXISTS todo_space_details;
+DROP TABLE IF EXISTS todo_space;
+DROP TABLE IF EXISTS authority_list;
+DROP TABLE IF EXISTS scope_list;
+DROP TABLE IF EXISTS users;

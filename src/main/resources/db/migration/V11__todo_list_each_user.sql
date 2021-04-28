@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS todo_list_each_user;
-
 CREATE VIEW todo_list_each_user AS (
 	SELECT
 		have_user_list.user_id AS user_id,

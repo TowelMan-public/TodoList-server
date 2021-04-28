@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS simple_todo_list;
-
 CREATE VIEW simple_todo_list AS (
 	SELECT
 		have_user_list.user_id AS user_id,
