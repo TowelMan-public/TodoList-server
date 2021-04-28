@@ -3,11 +3,8 @@ package com.example.demo.batch.tasklet;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.springframework.batch.core.StepContribution;
-import org.springframework.batch.core.scope.context.ChunkContext;
-import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.dto.ListEntityExample;
@@ -16,18 +13,17 @@ import com.example.demo.repository.EraseMapper;
 import com.example.demo.repository.ListEntityMapper;
 
 @Component
-public class EraseTasklet implements Tasklet{
+public class EraseTask{
 	@Autowired
 	EraseMapper eraseMapper;
 	@Autowired
 	ListEntityMapper listEntityMapper;
 	
-	@Override
-	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+	@Scheduled(cron="0 0 0 * * *")
+	public void execute() {
 		//処理
 		deleteOldListBeforDays(0);
-		eraseUnabledAllBeforDate(new Date());		
-		return RepeatStatus.FINISHED;
+		eraseUnabledAllBeforDate(new Date());
 	}
 	
 	//古くなった（指定された日付より一定日数過ぎた）Listの削除（Deleteは有効根はないものにするの意味）

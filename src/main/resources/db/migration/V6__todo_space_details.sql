@@ -4,7 +4,7 @@ CREATE TABLE todo_space_details(
 	scope_id INT DEFAULT 2,
 	is_simple TINYINT(1) DEFAULT 0,
 	is_enabled TINYINT(1) DEFAULT 1,
-	update_timestampe DATETIME DEFAULT CURRENT_TIMESTAMP,
+	update_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
 	
 	CONSTRAINT fk_space_id
 	    FOREIGN KEY (space_id) 

@@ -14,7 +14,7 @@
 				SELECT
 					space_id
 				FROm
-					tpdp_space_details
+					todo_space_details
 				WHERE
 					is_enabled = 0
 				  AND
