@@ -34,15 +34,20 @@
       This element was generated on Fri Apr 30 22:33:48 JST 2021.
     -->
     insert into todo_space
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="spaceId != null">
-        space_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="spaceId != null">
-        #{spaceId,jdbcType=INTEGER},
-      </if>
-    </trim>
+    (
+	    <trim prefix="" suffix="" suffixOverrides=",">
+	      <if test="spaceId != null">
+	        space_id,
+	      </if>
+	    </trim>
+	 )
+	 
+	 VALUES(
+	    <trim prefix="" suffix="" suffixOverrides=",">
+	      <if test="spaceId != null">
+	        #{spaceId,jdbcType=INTEGER},
+	      </if>
+	    </trim>
+    )
   </insert>
 </mapper>
