@@ -74,6 +74,12 @@ public class ExceptionControllerAdvice{
 		return new ErrorResponse("IsSimpleSpaceException",e.getMessage());
 	}
 	
+	@ExceptionHandler(RuntimeException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorResponse runtimeException(RuntimeException e) {
+		return new ErrorResponse("IsSimpleSpaceException",e.getMessage());
+	}
+	
 	@Value
 	public class ErrorResponse {
 	    String errorCode;

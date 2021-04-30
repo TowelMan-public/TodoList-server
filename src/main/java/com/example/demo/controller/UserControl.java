@@ -39,6 +39,11 @@ public class UserControl {
 		service.insertUser(form);
 	}
 	
+	@GetMapping("insert")
+	public String test() {
+		return "test";
+	}
+	
 	@PostMapping("password/update") 
 	public void updatePassword(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.PasswordGroup.class) UserForm form) 
 			throws NotFoundException{
