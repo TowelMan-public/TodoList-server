@@ -7,6 +7,7 @@
         userId="root"
         password="root">
     </jdbcConnection>
+    
     <!-- SELECT 結果等を格納するドメインモデルを生成する設定 -->
     <javaModelGenerator targetPackage="com.example.demo.entity" targetProject="TodoList/src/main/java">
       <property name="enableSubPackages" value="true" />
@@ -21,6 +22,34 @@
     <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.repository" targetProject="TodoList/src/main/java">
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
+    
+    <table schema="todo_list" tableName="todo_space_details"
+     	domainObjectName="SpaceEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="flat">
+    </table>
+    
+    <table schema="todo_list" tableName="simple_todo_list"
+     	domainObjectName="SimpleTodoListEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="true"
+	    enableUpdateByPrimaryKey="true"
+	    enableUpdateByExample="true"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="true"
+	    enableCountByExample="true"
+	    selectByExampleQueryId="true"
+	    modelType="flat">
+    </table>
     
      <table schema="todo_list" tableName="have_user_list"
      	domainObjectName="UserInSpaceEntity"
@@ -92,6 +121,20 @@
 	    modelType="flat">
     </table>
     
+    <table schema="todo_list" tableName="todo_space"
+     	domainObjectName="SpacePrimaryEntity"
+     	enableInsert="true"
+	    enableSelectByPrimaryKey="true"
+	    enableSelectByExample="false"
+	    enableUpdateByPrimaryKey="false"
+	    enableUpdateByExample="false"
+	    enableDeleteByPrimaryKey="true"
+	    enableDeleteByExample="false"
+	    enableCountByExample="false"
+	    selectByExampleQueryId="false"
+	    modelType="flat">
+    </table>
+    
     <table schema="todo_list" tableName="users"
      	domainObjectName="UserEntity"
      	enableInsert="true"
@@ -104,20 +147,6 @@
 	    enableCountByExample="true"
 	    selectByExampleQueryId="true"
 	    modelType="flat">
-    </table>
-    
-    <table schema="todo_list" tableName="simple_todo_list"
-     	domainObjectName="SimpleTodoListEntity"
-     	enableInsert="true"
-	    enableSelectByPrimaryKey="true"
-	    enableSelectByExample="true"
-	    enableUpdateByPrimaryKey="true"
-	    enableUpdateByExample="true"
-	    enableDeleteByPrimaryKey="true"
-	    enableDeleteByExample="true"
-	    enableCountByExample="true"
-	    selectByExampleQueryId="true"
-	    modelType="hierarchical">
     </table>
     
     <table schema="todo_list" tableName="todo_content"
@@ -147,6 +176,5 @@
 	    selectByExampleQueryId="true"
 	    modelType="flat">
     </table>
-    
   </context>
 </generatorConfiguration>

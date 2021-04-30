@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.PublicSpaceMapper">
 	<select id="getPublicSpace" parameterType="java.lang.Integer" resultType="com.example.demo.entity.SpaceEntity">
-		SELECT space_id AS 'spaceId',
+		SELECT todo_space_details.space_id AS 'spaceId',
 			space_name AS 'spaceName',
 			scope_id AS 'scopeId',
 			is_simple AS 'isSimple',
-			is_enable AS 'isEnable',
+			is_enabled AS 'isEnable',
 			update_timestamp AS 'updateTimestamp'
 		FROM
 			todo_space_details
@@ -17,6 +17,6 @@
 		AND
 			todo_space_details.scope_id = 1
 		AND
-			todo_space_details.is_enable = 1
+			todo_space_details.is_enabled = 1
 	</select>
 </mapper>

@@ -31,8 +31,8 @@ public class SpaceLogicSharedService {
 	public void deleteSpace(int spaceId) {
 		//データ作成
 		SpaceEntity entity = new SpaceEntity();
-		entity.setIsEnable(false);
-		entity.setUpdateTimestamp(new Date());//タイムスタンプ
+		entity.setIsEnabled(false);
+		entity.setUpdateTimestampe(new Date());//タイムスタンプ
 		entity.setSpaceId(spaceId);
 		
 		//実行
@@ -60,7 +60,7 @@ public class SpaceLogicSharedService {
 	}
 
 	public void updateSelective(SpaceEntity entity) {
-		entity.setUpdateTimestamp(new Date());//タイムスタンプ
+		entity.setUpdateTimestampe(new Date());//タイムスタンプ
 		spaceEntityMapper.updateByPrimaryKeySelective(entity);
 	}
 
