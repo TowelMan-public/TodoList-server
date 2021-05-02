@@ -1,6 +1,7 @@
 package com.example.demo.form;
 
 public class Groups {
+	public interface LoginGroup{}
 	public interface ContentGetGroup{}
 	public interface CountInDayGroup{}
 	public interface CountInMonthGroup{}

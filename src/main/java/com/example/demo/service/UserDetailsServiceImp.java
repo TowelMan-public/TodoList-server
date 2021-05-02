@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.UserDetailsImp;
+import com.example.demo.entity.UserEntity;
 import com.example.demo.logic.UserLogicSharedService;
 
 @Service
@@ -15,7 +16,16 @@ public class UserDetailsServiceImp implements UserDetailsService {
 	private UserLogicSharedService userLogicSharedService;
 	
 	@Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+    public UserDetailsImp loadUserByUsername(final String username) throws UsernameNotFoundException {
 		return new UserDetailsImp(userLogicSharedService.getUserByUsername(username));
     }
+
+	public UserDetails loadUserByUserId(Integer userId) {
+		UserEntity entity = userLogicSharedService.getUserByUserId(userId);
+		
+		if(entity != null && entity.getIsEnabled() == 1)
+			return new UserDetailsImp(entity);
+		else
+			return null;
+	}
 }

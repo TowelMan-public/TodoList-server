@@ -30,6 +30,9 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
     	
         final String token = provider.resolveToken((HttpServletRequest) request);
         
+        //TODO デバッグ用コード　デバッグが終わったら消すこと
+        String url =  ((HttpServletRequest)request).getRequestURI();
+        
         if (token != null && provider.validateToken(token)) {
             final Authentication auth = provider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(auth);

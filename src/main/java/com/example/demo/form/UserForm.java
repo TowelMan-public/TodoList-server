@@ -9,9 +9,9 @@ import lombok.Data;
 
 @Data
 public class UserForm {
-	@NotBlank(message=RegexpMessage.EMPTY,groups= {Groups.InsertGroup.class})
+	@NotBlank(message=RegexpMessage.EMPTY,groups= {Groups.InsertGroup.class,Groups.LoginGroup.class})
 	private String username;
-	@NotBlank(message=RegexpMessage.EMPTY,groups= {Groups.InsertGroup.class})
+	@NotBlank(message=RegexpMessage.EMPTY,groups= {Groups.InsertGroup.class,Groups.LoginGroup.class})
 	private String password;
 	
 	@NotBlank(message=RegexpMessage.EMPTY,groups= {Groups.NameGroup.class})
@@ -23,7 +23,12 @@ public class UserForm {
 	private String oneMorePassword;
 	
 	@AssertTrue(message = "2つのパスワードが合致しません。もう一度お確かめください",groups= {Groups.PasswordGroup.class,Groups.InsertGroup.class})
-	public boolean isNotMatchesPassword() {
+	public boolean isNotMatchesNewPasswords() {
 		return (newUsername == null || oneMorePassword == null) || (newUsername.equals(oneMorePassword));
+	}
+	
+	@AssertTrue(message = "2つのパスワードが合致しません。もう一度お確かめください",groups= {Groups.InsertGroup.class})
+	public boolean isNotMatchesPasswords() {
+		return (password == null || oneMorePassword == null) || (password.equals(oneMorePassword));
 	}
 }

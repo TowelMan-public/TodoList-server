@@ -6,12 +6,15 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.UserDetailsImp;
+import com.example.demo.exception.LoginException;
 import com.example.demo.service.UserDetailsServiceImp;
 
 import io.jsonwebtoken.Claims;
@@ -23,11 +26,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JWTProvider {
 
     // Signatureのエンコードに使うシークレットキー
-    public static final String TOKEN_SECRET_KEY = "This is secrect!";
+    public static final String TOKEN_SECRET_KEY = "aeryrt27jiy2574eartaz";
 
     // ユーザ情報を取得するためのサービスクラス
     @Autowired
     private UserDetailsServiceImp service;
+    @Autowired
+	PasswordEncoder passwordEncoder;
 
     // UserオブジェクトからJWTを作成する
     public String createToken(UserDetailsImp user) {
@@ -51,15 +56,51 @@ public class JWTProvider {
                 .compact();
     }
 
+    public String loginAndGetToken(String username, String password) throws LoginException {
+    	UserDetailsImp user;
+    	
+    	//ログイン処理
+    	try {
+	    	user = service.loadUserByUsername(username);
+	    	
+	    	if( !passwordEncoder.matches(password, user.getPassword()) )
+	    		throw new BadCredentialsException("passwords is not matches");
+    	}
+    	catch(Exception e) {
+    		throw new LoginException(e.getMessage());
+    	}
+    	
+    	return createToken(user);
+    }
+    
     // トークンからユーザ情報を取得する
     public Authentication getAuthentication(final String token) {
-        final UserDetails userDetails = this.service.loadUserByUsername(this.getSubject(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        final UserDetails userDetails = service.loadUserByUserId(getUserId(token));
+        
+        if(userDetails != null)        
+        	return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        else
+        	return null;
     }
-
+    
     // トークンからユーザ名を取得する
-    public String getSubject(final String token) {
-        return Jwts.parser().setSigningKey(TOKEN_SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+    public String getUsername(final String token) {
+        return String.valueOf(
+        		Jwts.parser()
+        			.setSigningKey(TOKEN_SECRET_KEY)
+	        		.parseClaimsJws(token)
+		        		.getBody()
+		        		.get("username"));
+    }
+    
+    //トークンからユーザーIDを取得する
+    public Integer getUserId(final String token) {
+    	return Integer.valueOf(
+    			Jwts.parser()
+	    			.setSigningKey(TOKEN_SECRET_KEY)
+	        		.parseClaimsJws(token)
+		        		.getBody()
+		        		.getSubject());
     }
 
     // リクエストのHeaderからトークンを取得する
@@ -67,11 +108,13 @@ public class JWTProvider {
         return request.getHeader("X-AUTH-TOKEN");
     }
 
-    // トークンの有効期間を検証する
+    // トークンの有効期間と実際に存在するかを検証する
     public boolean validateToken(final String token) {
         try {
             final Jws<Claims> claims = Jwts.parser().setSigningKey(TOKEN_SECRET_KEY).parseClaimsJws(token);
-            return !claims.getBody().getExpiration().before(new Date());
+            
+            return !claims.getBody().getExpiration().before(new Date()) &&
+            		service.loadUserByUserId(getUserId(token)) != null;
         } catch (Exception e) {
             return false;
         }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.example.demo.exception.AlreadyUsedException;
 import com.example.demo.exception.HaveNotAuthorityInSpaceException;
 import com.example.demo.exception.IsSimpleSpaceException;
+import com.example.demo.exception.LoginException;
 import com.example.demo.exception.SpaceIsnotPublicException;
 import com.example.demo.exception.UserAleadyJoinSpaceException;
 
@@ -72,6 +73,12 @@ public class ExceptionControllerAdvice{
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorResponse isSimpleSpaceException(IsSimpleSpaceException e) {
 		return new ErrorResponse("IsSimpleSpaceException",e.getMessage());
+	}
+	
+	@ExceptionHandler(LoginException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ErrorResponse loginException(LoginException e) {
+		return new ErrorResponse("LoginException",e.getMessage());
 	}
 	
 	@ExceptionHandler(RuntimeException.class)
