@@ -69,7 +69,7 @@ public class MySpaceService {
 	public List<TodoListEachUserEntity> getListInDayInSpace(MySpaceListForm form, int userId){
 		//データセット
 		DateUtilitySharedService.BetoweenDate betoweenDate =
-				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getWeekCount());
+				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getDay());
 		
 		//処理
 		return listEachUserSharedService.getListBetoweenDateByUserId(userId

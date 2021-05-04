@@ -27,22 +27,22 @@ public class MySpaceControl {
 	MySpaceService mySpaceService;
 	
 	@GetMapping("count/day/get")
-	public CountlistInSpaceEntity getCountMyListInDay(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.CountInDayGroup.class) MySpaceListForm form) {
+	public CountlistInSpaceEntity getCountMyListInDay(@AuthenticationPrincipal UserDetailsImp user,@Validated(Groups.CountInDayGroup.class) MySpaceListForm form) {
 		return mySpaceService.getCountListInDay(form, user.getUserId());
 	}
 	
 	@GetMapping("count/month/get")
-	public CountlistInSpaceEntity getCountMyListInMonth(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInMonthGroup.class) MySpaceListForm form) {
+	public CountlistInSpaceEntity getCountMyListInMonth(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.CountInMonthGroup.class) MySpaceListForm form) {
 		return mySpaceService.getCountListInMonth(form, user.getUserId());
 	}
 
 	@GetMapping("count/week/get")
-	public CountlistInSpaceEntity getCountMyListInWeek(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInWeekGroup.class) MySpaceListForm form) {
+	public CountlistInSpaceEntity getCountMyListInWeek(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.CountInWeekGroup.class) MySpaceListForm form) {
 		return mySpaceService.getCountListInWeek(form, user.getUserId());
 	}
 	
 	@GetMapping("day/get")
-	public List<TodoListEachUserEntity> getListInDayInMySpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ListInDayGroup.class) MySpaceListForm form) {
+	public List<TodoListEachUserEntity> getListInDayInMySpace(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.ListInDayGroup.class) MySpaceListForm form) {
 		return mySpaceService.getListInDayInSpace(form, user.getUserId());
 	}
 	

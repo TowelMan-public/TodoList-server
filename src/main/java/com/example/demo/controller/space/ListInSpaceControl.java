@@ -27,25 +27,25 @@ public class ListInSpaceControl {
 	ListInSpaceServer listInSpaceServer;
 	
 	@GetMapping("count/day/get")
-	CountlistInSpaceEntity getCountListInDay(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInDayGroup.class) SpaceListForm form) 
+	CountlistInSpaceEntity getCountListInDay(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.CountInDayGroup.class) SpaceListForm form) 
 			throws HaveNotAuthorityInSpaceException {
 		return listInSpaceServer.getCountListInDay(form,user.getUserId());
 	}
 	
 	@GetMapping("count/month/get")
-	CountlistInSpaceEntity getCountListInMonth(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInMonthGroup.class) SpaceListForm form) 
+	CountlistInSpaceEntity getCountListInMonth(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.CountInMonthGroup.class) SpaceListForm form) 
 			throws HaveNotAuthorityInSpaceException {
 		return listInSpaceServer.getCountListInMonth(form,user.getUserId());
 	}
 
 	@GetMapping("count/week/get")
-	CountlistInSpaceEntity getCountListInWeek(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.CountInWeekGroup.class) SpaceListForm form) 
+	CountlistInSpaceEntity getCountListInWeek(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.CountInWeekGroup.class) SpaceListForm form) 
 			throws HaveNotAuthorityInSpaceException {
 		return listInSpaceServer.getCountListInWeek(form,user.getUserId());
 	}
 	
 	@GetMapping("day/get")
-	List<TodoListEachUserEntity> getListInDayInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.ListInDayGroup.class) SpaceListForm form) 
+	List<TodoListEachUserEntity> getListInDayInSpace(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.ListInDayGroup.class) SpaceListForm form) 
 			throws HaveNotAuthorityInSpaceException {
 		return listInSpaceServer.getListInDayInSpace(form,user.getUserId());
 	}

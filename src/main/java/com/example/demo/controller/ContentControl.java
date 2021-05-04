@@ -30,7 +30,7 @@ public class ContentControl {
 	}
 	
 	@GetMapping("get")
-	public ContentEntity getContent(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) ContentForm form) throws NotFoundException, HaveNotAuthorityInSpaceException{
+	public ContentEntity getContent(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.GetGroup.class) ContentForm form) throws NotFoundException, HaveNotAuthorityInSpaceException{
 		return contentService.getContent(form.getContentId(),user.getUserId());
 	}
 	

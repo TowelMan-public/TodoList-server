@@ -34,7 +34,7 @@ public class UserInSpaceControl {
 	}
 	
 	@GetMapping("get")
-	public List<UserInSpaceEntity> getUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @RequestBody @Validated(Groups.GetGroup.class) UserInSpaceForm form)
+	public List<UserInSpaceEntity> getUserInSpace(@AuthenticationPrincipal UserDetailsImp user, @Validated(Groups.GetGroup.class) UserInSpaceForm form)
 			throws HaveNotAuthorityInSpaceException, IsSimpleSpaceException {
 		return userInSpaceService.getUserInSpace(user.getUserId(),form.getSpaceId());
 	}
