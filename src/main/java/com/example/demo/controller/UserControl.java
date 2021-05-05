@@ -46,8 +46,8 @@ public class UserControl {
 	}
 	
 	@PostMapping("username/update")
-	public void updateUsernaem(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.NameGroup.class) UserForm form)
+	public String updateUsernaem(@AuthenticationPrincipal UserDetailsImp user,@RequestBody @Validated(Groups.NameGroup.class) UserForm form)
 			throws NotFoundException,AlreadyUsedException{
-		service.updateUsername(user.getUserId(),user.getUsername(),form.getNewUsername());
+		return service.updateUsername(user.getUserId(),user.getUsername(),form.getNewUsername());
 	}
 }

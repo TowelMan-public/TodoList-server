@@ -13,6 +13,7 @@ import com.example.demo.form.UserForm;
 import com.example.demo.logic.SimpleTodoLogicSharedService;
 import com.example.demo.logic.SpacePrimaryLogicSharedService;
 import com.example.demo.logic.UserLogicSharedService;
+import com.example.demo.provider.JWTProvider;
 
 @Service
 public class UserService {
@@ -24,6 +25,8 @@ public class UserService {
 	SpacePrimaryLogicSharedService spacePrimaryLogicSharedService;
 	@Autowired
 	PasswordEncoder encoder;
+	@Autowired
+	JWTProvider provider;
 	
 	@Transactional(rollbackForClassName = "Exception")
 	public void deleteUser(int userId,String username) throws NotFoundException{
@@ -78,16 +81,18 @@ public class UserService {
 	}
 	
 	@Transactional(rollbackForClassName = "Exception")
-	public void updateUsername(int userId,String oldUsername,String newUsername) throws NotFoundException,AlreadyUsedException{
+	public String updateUsername(int userId,String oldUsername,String newUsername) throws NotFoundException,AlreadyUsedException{
 		//更新するデータをセット
 		UserEntity entity = new UserEntity();
 		entity.setUserId(userId);
 		entity.setUsername(newUsername);
+		entity.setIsEnabled(1);
 		
 		//検証
 		userLogicSharedService.verificationExistsUsername(oldUsername);
 		userLogicSharedService.verificationNotUsedUsername(newUsername);
 		//処理
 		userLogicSharedService.updateUserByPrimaryKeySelective(entity);
+		return provider.createToken(new UserDetailsImp(entity));
 	}
 }
