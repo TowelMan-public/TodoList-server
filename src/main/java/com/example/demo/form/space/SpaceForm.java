@@ -15,9 +15,9 @@ public class SpaceForm {
 	private Integer spaceId;
 	
 	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.ScopeUpdateGroup.class,Groups.MakeGroup.class})
-	private Integer scopeId;
+	private String spaceName;
 	
 	@Max(value=3, message=RegexpMessage.SCOPE,groups = {Groups.MakeGroup.class})
 	@Min(value=1, message=RegexpMessage.SCOPE,groups = {Groups.MakeGroup.class})
-	private String spaceName;
+	private Integer scopeId;
 }

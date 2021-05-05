@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 public class ListForm {
-	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.UpdateGroup.class,Groups.DeleteGroup.class,Groups.ContentGetGroup.class,Groups.GetGroup.class})
+	@NotNull(message=RegexpMessage.EMPTY,groups = {Groups.UpdateGroup.class,Groups.DeleteGroup.class,Groups.ContentGetGroup.class,Groups.GetGroup.class})
 	private Integer listId;
 	
 	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.UpdateGroup.class,Groups.InsertGroup.class})

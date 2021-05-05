@@ -82,8 +82,9 @@ public class MySpaceService {
 
 		//spaceの情報を1つずつ取得する
 		for(int i = 0;i < spaceIdGathering.size(); i++) {
-			spaceEntityGathering.add(
-					spaceLogicSharedService.getSpaceBySpaceid(spaceIdGathering.get(i).getSpaceId()));
+			SpaceEntity entity = spaceLogicSharedService.getSpaceBySpaceid(spaceIdGathering.get(i).getSpaceId());
+			if(!entity.getIsSimple())
+				spaceEntityGathering.add(entity);
 		}
 		
 		return spaceEntityGathering;
