@@ -29,7 +29,7 @@ public class ListInSpaceServer {
 		
 		//データセット
 		DateUtilitySharedService.BetoweenDate betoweenDate =
-				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getWeekCount());
+				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getDay());
 		
 		//処理
 		int listCount = listEachUserSharedService.getListCountBetoweenDateBySpaceId(form.getSpaceId()

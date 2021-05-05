@@ -27,7 +27,7 @@ public class MySpaceService {
 	public CountlistInSpaceEntity getCountListInDay(MySpaceListForm form, int userId){
 		//データセット
 		DateUtilitySharedService.BetoweenDate betoweenDate =
-				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getWeekCount());
+				dateUtilitySharedService.getBetoweenDateInDay(form.getYear(), form.getMonth(),form.getDay());
 		
 		//処理
 		int listCount = listEachUserSharedService.getListCountBetoweenDateByUserId(userId
