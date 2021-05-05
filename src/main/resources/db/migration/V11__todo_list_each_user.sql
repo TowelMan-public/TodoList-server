@@ -13,5 +13,5 @@ CREATE VIEW todo_list_each_user AS (
     INNER JOIN todo_space_details
     	ON todo_list.space_id = todo_space_details.space_id
     WHERE
-    	todo_space_details.is_simple = 1
+    	todo_space_details.is_simple = 0
 )

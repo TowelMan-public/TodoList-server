@@ -25,6 +25,6 @@ public class ListForm {
 	@DateTimeFormat(pattern ="H:m")
 	private Date listTime;
 	
-	@NotBlank(message=RegexpMessage.EMPTY,groups = {Groups.InsertGroup.class})
+	@NotNull(message=RegexpMessage.EMPTY,groups = {Groups.InsertGroup.class})
 	private Integer spaceId;
 }
