@@ -10,13 +10,18 @@
 			update_timestamp AS 'updateTimestamp'
 		FROM
 			todo_space_details
-		INNER JOIN have_user_list
-			ON todo_space_details.space_id = have_user_list.space_id
 		WHERE
-			have_user_list.user_id <![CDATA[ <> ]]> #{userId}
-		AND
 			todo_space_details.scope_id = 1
 		AND
 			todo_space_details.is_enabled = 1
+		AND
+			todo_space_details.space_id NOT IN(
+			
+				SELECT
+					space_id
+				FROM 
+					have_user_list
+				WHERE
+					user_id = #{userId})
 	</select>
 </mapper>

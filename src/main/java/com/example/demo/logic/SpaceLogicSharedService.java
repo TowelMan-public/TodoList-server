@@ -118,7 +118,7 @@ public class SpaceLogicSharedService {
 			.andIsSimpleEqualTo(true);
 		
 		//処理
-		if(spaceEntityMapper.countByExample(selectDto) == 0) 
+		if(spaceEntityMapper.countByExample(selectDto) != 0) 
 			throw new IsSimpleSpaceException("space is simple");
 	}
 }
