@@ -76,6 +76,7 @@ public class ListService {
 		ListEntity entity = new ListEntity();
 		entity.setListName(form.getListName());
 		entity.setListDate(utilitySharedService.mergeDate(form.getListDate(), form.getListTime()));
+		entity.setListId(form.getListId());
 		
 		//処理
 		listLogicSharedService.updateListByPrimaryKeySelective(entity);

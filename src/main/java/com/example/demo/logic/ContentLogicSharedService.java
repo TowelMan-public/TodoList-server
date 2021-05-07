@@ -40,7 +40,8 @@ public class ContentLogicSharedService {
 		//SQL作成
 		ContentEntityExample selectDto = new ContentEntityExample();
 		selectDto.or()
-				.andListIdEqualTo(listId);
+				.andListIdEqualTo(listId)
+				.andIsEnabledEqualTo(true);
 		
 		//処理
 		return contentEntityMapper.selectByExample(selectDto);

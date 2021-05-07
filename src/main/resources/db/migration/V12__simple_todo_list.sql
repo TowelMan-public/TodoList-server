@@ -13,4 +13,6 @@ CREATE VIEW simple_todo_list AS (
     	ON todo_list.space_id = todo_space_details.space_id
     WHERE
     	todo_space_details.is_simple = 1
+      AND
+      	todo_list_details.is_enabled = 1
 )
