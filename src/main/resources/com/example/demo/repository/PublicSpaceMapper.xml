@@ -13,7 +13,7 @@
 		INNER JOIN have_user_list
 			ON todo_space_details.space_id = have_user_list.space_id
 		WHERE
-			have_user_list.user_id = #{userId}
+			have_user_list.user_id <![CDATA[ <> ]]> #{userId}
 		AND
 			todo_space_details.scope_id = 1
 		AND

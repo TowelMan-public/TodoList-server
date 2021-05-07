@@ -54,10 +54,10 @@ class UserInSpaceLogicSharedServiceTest {
 	void verificationNotJoinedUserInSpaceTest() {
 		//加入しているユーザー
 		Assertions.assertDoesNotThrow(
-				() -> userInSpaceLogicSharedService.verificationNotJoinedUserInSpace(spaceId,userIdInSpace));
+				() -> userInSpaceLogicSharedService.verificationNotJoinedUserInSpace(spaceId,userIdInNoSpace));
 		
 		//加入していないユーザー
 		Assertions.assertThrows(UserAleadyJoinSpaceException.class,
-				() -> userInSpaceLogicSharedService.verificationNotJoinedUserInSpace(spaceId,userIdInNoSpace));
+				() -> userInSpaceLogicSharedService.verificationNotJoinedUserInSpace(spaceId,userIdInSpace));
 	}
 }

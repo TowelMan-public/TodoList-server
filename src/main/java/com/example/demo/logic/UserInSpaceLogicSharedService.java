@@ -43,7 +43,7 @@ public class UserInSpaceLogicSharedService {
 			.andSpaceIdEqualTo(spaceId)
 			.andUserIdEqualTo(userId);
 		
-		if(userInSpaceEntityMapper.countByExample(selectDto) == 0)
+		if(userInSpaceEntityMapper.countByExample(selectDto) != 0)
 			throw new UserAleadyJoinSpaceException("UserAleadyJoinSpaceException");
 	}
 }
